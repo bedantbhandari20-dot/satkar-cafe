@@ -891,7 +891,7 @@ const haptic = (type) => {
                   {/* Signature badge - Premium Floating Pill */}
                   {(item.isSignatureItem || INCLUDED_SIGNATURE_NAMES.includes(item.name)) && (
                     <div 
-                      className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-700 delay-300" 
+                      className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full md:backdrop-blur-md transition-all duration-700 delay-300" 
                       style={{ 
                         background: 'rgba(20, 12, 6, 0.65)', 
                         border: '1px solid rgba(217,174,99,0.3)',
@@ -943,7 +943,7 @@ const haptic = (type) => {
           {specials.length > 1 && (
             <div className="flex justify-center gap-2 mt-6 px-8">
               {specials.map((_, i) => (
-                <div key={i} className="h-1 flex-1 rounded-full bg-espresso-200/40 overflow-hidden relative backdrop-blur-sm">
+                <div key={i} className="h-1 flex-1 rounded-full bg-espresso-200/40 overflow-hidden relative md:backdrop-blur-sm">
                   <div 
                     className="absolute top-0 left-0 bottom-0 rounded-full"
                     style={{
@@ -1299,6 +1299,7 @@ const haptic = (type) => {
             {/* Hero-bound background video — mask physically dissolves into cream */}
             <video
               src="/mmm.mp4"
+              poster="/poster.jpg"
               autoPlay
               loop
               muted
@@ -1330,7 +1331,7 @@ const haptic = (type) => {
             
             {/* Announcement Banner */}
             {appConfig?.announcementActive && appConfig?.announcementText && (
-              <div className="absolute top-0 left-0 right-0 z-50 bg-espresso-950/90 backdrop-blur-md text-sand-50 px-4 py-2.5 text-center shadow-md">
+              <div className="absolute top-0 left-0 right-0 z-50 bg-espresso-950/90 md:backdrop-blur-md text-sand-50 px-4 py-2.5 text-center shadow-md">
                 <span className="font-sans text-[9px] uppercase tracking-[0.2em] font-bold block pt-safe">
                   {appConfig.announcementText}
                 </span>
@@ -1634,7 +1635,7 @@ const haptic = (type) => {
             
             {!item.inStock && (
               <div className="absolute inset-0 z-20 flex items-center justify-center">
-                <span className="bg-espresso-950/80 backdrop-blur-md border border-white/10 text-white font-sans font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full shadow-xl">
+                <span className="bg-espresso-950/80 md:backdrop-blur-md border border-white/10 text-white font-sans font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full shadow-xl">
                   Sold Out
                 </span>
               </div>
@@ -1643,13 +1644,13 @@ const haptic = (type) => {
             {/* Diet tags */}
             <div className="absolute top-3 left-3 z-10 flex gap-1.5 flex-wrap max-w-[80%]">
               {showFoodTag && (
-              <div className="bg-black/30 backdrop-blur-md px-2 py-1 rounded-md border border-white/10 flex items-center gap-1">
+              <div className="bg-black/30 md:backdrop-blur-md px-2 py-1 rounded-md border border-white/10 flex items-center gap-1">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: isVeg ? 'var(--veg)' : 'var(--nonveg)' }} />
                 <span className="text-[10px] font-bold text-white uppercase tracking-wider">{isVeg ? 'Veg' : 'Non-veg'}</span>
               </div>
               )}
               {isSpicy && (
-                <div className="bg-red-900/30 backdrop-blur-md px-2 py-1 rounded-md border border-white/10">
+                <div className="bg-red-900/30 md:backdrop-blur-md px-2 py-1 rounded-md border border-white/10">
                   <span className="text-[10px] font-bold text-white uppercase tracking-wider">Spicy</span>
                 </div>
               )}
@@ -2015,7 +2016,7 @@ const haptic = (type) => {
                       {/* Diet badges inside image bottom corner */}
                       {item.foodType !== 'none' && item.foodType && (
                         <div className="absolute bottom-1.5 left-1.5 z-10">
-                          <div className={`w-5 h-5 rounded-[4px] border flex items-center justify-center shadow-sm backdrop-blur-sm ${
+                          <div className={`w-5 h-5 rounded-[4px] border flex items-center justify-center shadow-sm md:backdrop-blur-sm ${
                             item.foodType === 'veg' 
                               ? 'border-green-600/30 bg-green-50/90' 
                               : 'border-red-600/30 bg-red-50/90'
@@ -3564,7 +3565,7 @@ const haptic = (type) => {
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
         <div style={{ aspectRatio: aspect }} className="w-full relative">
            <div className="absolute inset-0 border-2 border-dashed border-white/60 shadow-[0_0_0_100vmax_rgba(0,0,0,0.5)] z-10 flex items-center justify-center">
-              <div className="px-2 py-1 bg-black/40 backdrop-blur rounded text-[8px] text-white/80 uppercase font-bold tracking-widest">{label}</div>
+              <div className="px-2 py-1 bg-black/40 md:backdrop-blur rounded text-[8px] text-white/80 uppercase font-bold tracking-widest">{label}</div>
            </div>
         </div>
       </div>
@@ -3929,7 +3930,7 @@ const haptic = (type) => {
                     <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
                   </svg>
                   <span className="text-[11px] text-red-300 font-medium">{error}</span>
-                  <button className="text-[10px] bg-white/20 backdrop-blur px-3 py-1 rounded-full text-white font-bold">Retry</button>
+                  <button className="text-[10px] bg-white/20 md:backdrop-blur px-3 py-1 rounded-full text-white font-bold">Retry</button>
                 </div>
               ) : (
                 <>
@@ -4161,7 +4162,7 @@ const haptic = (type) => {
       const graphRef = useRef(null);
       
       if (!data || data.length === 0) return (
-        <div className="bg-white/80 backdrop-blur-xl border border-espresso-100/50 p-8 rounded-3xl shadow-sm text-center text-espresso-400 text-xs">
+        <div className="bg-white/80 md:backdrop-blur-xl border border-espresso-100/50 p-8 rounded-3xl shadow-sm text-center text-espresso-400 text-xs">
           Gathering insights...
         </div>
       );
@@ -4229,7 +4230,7 @@ const haptic = (type) => {
 
       return (
         <div 
-          className="relative bg-white/90 backdrop-blur-2xl border border-white/40 p-6 rounded-[2rem] space-y-6 overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-black/5"
+          className="relative bg-white/90 md:backdrop-blur-2xl border border-white/40 p-6 rounded-[2rem] space-y-6 overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-black/5"
           style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.5)' }}
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-transparent to-current opacity-[0.03] rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none transition-colors duration-1000" style={{ color: strokeColor }} />
@@ -4259,7 +4260,7 @@ const haptic = (type) => {
               </div>
             </div>
 
-            <div className="flex bg-espresso-50/50 backdrop-blur-md p-1.5 rounded-xl border border-espresso-100/50 shadow-inner">
+            <div className="flex bg-espresso-50/50 md:backdrop-blur-md p-1.5 rounded-xl border border-espresso-100/50 shadow-inner">
               {['revenue', 'orders'].map(m => (
                 <button 
                   key={m}
@@ -4884,7 +4885,7 @@ const haptic = (type) => {
             <h2 className="font-brand text-xl text-espresso-950" style={{ fontWeight: 600 }}>Dashboard</h2>
             <button className="text-sm px-3 py-1.5 rounded-full text-espresso-900 active:scale-95 transition-transform bg-sand-200 border border-sand-300" onClick={close}>Close</button>
           </div>
-          <div className="px-5 py-4 shrink-0 border-b border-espresso-100/30 bg-white/40 backdrop-blur-2xl z-10 sticky top-0">
+          <div className="px-5 py-4 shrink-0 border-b border-espresso-100/30 bg-white/40 md:backdrop-blur-2xl z-10 sticky top-0">
             <div className="flex overflow-x-auto hide-scrollbar pb-1 -mb-1">
               <div className="inline-flex bg-espresso-50/80 p-1.5 rounded-2xl border border-espresso-100/50 shadow-inner gap-1 mx-auto">
                 {[
