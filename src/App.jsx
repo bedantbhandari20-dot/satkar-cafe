@@ -1298,7 +1298,7 @@ const haptic = (type) => {
           <div className="relative w-full aspect-[9/16] flex flex-col justify-end pt-12 pb-14 px-8 overflow-hidden bg-transparent">
             {/* Hero-bound background video — mask physically dissolves into cream */}
             <video
-              src="./mmm.mp4"
+              src="/mmm.mp4"
               autoPlay
               loop
               muted
