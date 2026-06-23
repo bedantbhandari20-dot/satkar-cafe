@@ -1027,7 +1027,8 @@ const haptic = (type) => {
           borderColor: "rgba(233, 180, 108, 0.24)",
           badgeBg: "rgba(233, 180, 108, 0.10)",
           badgeBorder: "rgba(233, 180, 108, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(50, 42, 35, 0.76) 0%, rgba(20, 16, 13, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(50, 42, 35, 0.76) 0%, rgba(20, 16, 13, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop"
         },
         "Bar": {
           span: "col-span-1",
@@ -1038,7 +1039,8 @@ const haptic = (type) => {
           borderColor: "rgba(130, 207, 162, 0.24)",
           badgeBg: "rgba(130, 207, 162, 0.10)",
           badgeBorder: "rgba(130, 207, 162, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(30, 48, 38, 0.76) 0%, rgba(12, 18, 14, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(30, 48, 38, 0.76) 0%, rgba(12, 18, 14, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop"
         },
         "Hookah": {
           span: "col-span-2",
@@ -1049,7 +1051,8 @@ const haptic = (type) => {
           borderColor: "rgba(191, 155, 255, 0.24)",
           badgeBg: "rgba(191, 155, 255, 0.10)",
           badgeBorder: "rgba(191, 155, 255, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(40, 32, 55, 0.76) 0%, rgba(15, 12, 22, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(40, 32, 55, 0.76) 0%, rgba(15, 12, 22, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1516812891225-c651f6186987?q=80&w=600&auto=format&fit=crop"
         },
         "Main Eats": {
           span: "col-span-2",
@@ -1060,7 +1063,8 @@ const haptic = (type) => {
           borderColor: "rgba(255, 122, 92, 0.24)",
           badgeBg: "rgba(255, 122, 92, 0.10)",
           badgeBorder: "rgba(255, 122, 92, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(52, 32, 28, 0.76) 0%, rgba(20, 12, 10, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(52, 32, 28, 0.76) 0%, rgba(20, 12, 10, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop"
         },
         "Snacks & Starters": {
           span: "col-span-1",
@@ -1071,7 +1075,8 @@ const haptic = (type) => {
           borderColor: "rgba(255, 181, 71, 0.24)",
           badgeBg: "rgba(255, 181, 71, 0.10)",
           badgeBorder: "rgba(255, 181, 71, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(50, 38, 28, 0.76) 0%, rgba(18, 14, 10, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(50, 38, 28, 0.76) 0%, rgba(18, 14, 10, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop"
         },
         "Bakery & Desserts": {
           span: "col-span-2",
@@ -1082,7 +1087,8 @@ const haptic = (type) => {
           borderColor: "rgba(245, 194, 112, 0.24)",
           badgeBg: "rgba(245, 194, 112, 0.10)",
           badgeBorder: "rgba(245, 194, 112, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(52, 42, 32, 0.76) 0%, rgba(20, 16, 12, 0.86) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(52, 42, 32, 0.76) 0%, rgba(20, 16, 12, 0.86) 100%)",
+          image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=600&auto=format&fit=crop"
         }
       };
 
@@ -1096,7 +1102,8 @@ const haptic = (type) => {
           borderColor: "rgba(226, 251, 82, 0.24)",
           badgeBg: "rgba(226, 251, 82, 0.10)",
           badgeBorder: "rgba(226, 251, 82, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(42, 42, 46, 0.72) 0%, rgba(18, 18, 20, 0.80) 100%)"
+          bgGradient: "linear-gradient(160deg, rgba(42, 42, 46, 0.72) 0%, rgba(18, 18, 20, 0.80) 100%)",
+          image: "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=600&auto=format&fit=crop"
         };
       };
 
@@ -1131,6 +1138,16 @@ const haptic = (type) => {
               opacity: isHovered ? 0.85 : 0.45,
             }} />
 
+            {/* Background image for every card */}
+            {bento.image && (
+              <img
+                src={bento.image}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover opacity-[0.25] mix-blend-luminosity group-hover:opacity-[0.45] group-hover:scale-105 transition-all duration-[900ms] pointer-events-none z-0"
+              />
+            )}
+
             {/* AI hero img (only AI card) */}
             {isAI && (
               <img
@@ -1163,21 +1180,22 @@ const haptic = (type) => {
             <div className="relative z-10 p-[18px] flex flex-col h-full items-center justify-center text-center">
 
               {/* Centered content block */}
-              <div className="mt-auto mb-auto pt-4 flex flex-col items-center">
+              <div className="mt-auto mb-auto flex flex-col items-center">
 
                 {/* Title — Fraunces serif, refined */}
                 <div
-                  className="font-display text-[20px] leading-[1.05] tracking-widest uppercase mb-1.5 transition-colors duration-300"
+                  className="font-display text-[17px] leading-[1.05] tracking-widest uppercase mb-1.5 transition-colors duration-300"
                   style={{
                     color: isHovered ? accent : '#ffffff',
                     fontVariationSettings: "'opsz' 144, 'wght' 450",
+                    textShadow: '0 2px 10px rgba(0,0,0,0.8)'
                   }}
                 >
                   {label}
                 </div>
 
                 {/* Subtitle */}
-                <div className="font-sans text-[10.5px] leading-[1.45] text-white/55 font-medium line-clamp-1 group-hover:text-white/75 transition-colors duration-300">
+                <div className="font-sans text-[9px] leading-[1.45] text-white/80 font-medium line-clamp-1 group-hover:text-white transition-colors duration-300" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                   {desc}
                 </div>
               </div>
