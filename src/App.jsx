@@ -1176,10 +1176,10 @@ const haptic = (type) => {
             }} />
 
             {/* Content */}
-            <div className="relative z-10 p-[18px] flex flex-col h-full items-center justify-center text-center">
+            <div className="relative z-10 p-[18px] flex-1 flex flex-col items-center justify-center text-center w-full h-full">
 
               {/* Centered content block */}
-              <div className="mt-auto mb-auto flex flex-col items-center">
+              <div className="flex flex-col items-center justify-center w-full">
 
                 {/* Title — Fraunces serif, refined */}
                 <div
