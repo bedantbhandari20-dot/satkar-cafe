@@ -1111,7 +1111,7 @@ const haptic = (type) => {
             onMouseEnter={() => setHoveredCard(hoverKey)}
             onMouseLeave={() => setHoveredCard(null)}
             onMouseMove={handleMouseMove}
-            className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] ${span}`}
+            className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] w-full break-inside-avoid mb-3`}
             style={{
               background: bento.bgGradient,
               border: `1px solid ${isHovered ? bento.borderColor : 'rgba(255,255,255,0.07)'}`,
@@ -1120,7 +1120,7 @@ const haptic = (type) => {
                 : `0 16px 48px -18px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 -1px 0 rgba(0,0,0,0.4)`,
               backdropFilter: 'blur(22px)',
               WebkitBackdropFilter: 'blur(22px)',
-              minHeight: span === 'col-span-2' ? '172px' : '186px',
+              minHeight: (label.length % 2 === 0 || span === 'col-span-2') ? '210px' : '170px',
               transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
               transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
             }}
@@ -1413,7 +1413,7 @@ const haptic = (type) => {
             </div>
           </div>
  
-          {/* Menu Categories — Asymmetric Bento Grid */}
+          {/* Menu Categories — Editorial Masonry Layout */}
           <div className="mx-5 mb-10 -mt-6 relative z-20">
             {/* Section header */}
             <div className="flex items-center gap-3 mb-5 px-1">
@@ -1423,7 +1423,7 @@ const haptic = (type) => {
               <span className="font-sans text-[8.5px] font-bold tracking-[0.22em] uppercase text-white/40 tabular-nums">{categories.length + 2} Chapters</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="columns-2 gap-3">
               {packedGridItems.map((item, idx) => {
                 if (item.type === 'category') {
                   const c = item.data;
