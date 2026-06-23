@@ -1118,13 +1118,12 @@ const haptic = (type) => {
             onMouseEnter={() => setHoveredCard(hoverKey)}
             onMouseLeave={() => setHoveredCard(null)}
             onMouseMove={handleMouseMove}
-            className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] w-full break-inside-avoid mb-3`}
+            className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] w-full break-inside-avoid mb-3 outline-none`}
             style={{
-              background: bento.bgGradient,
-              border: `1px solid transparent`,
+              background: 'transparent',
               boxShadow: isHovered
-                ? `0 24px 70px -15px ${bento.glowColor}, 0 12px 30px -10px rgba(0,0,0,0.8)`
-                : `0 16px 48px -12px rgba(0,0,0,0.85)`,
+                ? `0 24px 60px -15px rgba(0,0,0,0.5), 0 12px 20px -10px rgba(0,0,0,0.4)`
+                : `0 16px 40px -12px rgba(0,0,0,0.4)`,
               backdropFilter: 'blur(22px)',
               WebkitBackdropFilter: 'blur(22px)',
               minHeight: (label.length % 2 === 0 || span === 'col-span-2') ? '210px' : '170px',
