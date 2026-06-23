@@ -1104,8 +1104,7 @@ const haptic = (type) => {
           borderColor: "rgba(226, 251, 82, 0.24)",
           badgeBg: "rgba(226, 251, 82, 0.10)",
           badgeBorder: "rgba(226, 251, 82, 0.25)",
-          bgGradient: "linear-gradient(160deg, rgba(42, 42, 46, 0.72) 0%, rgba(18, 18, 20, 0.80) 100%)",
-          image: "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?q=80&w=600&auto=format&fit=crop"
+          bgGradient: "linear-gradient(160deg, rgba(42, 42, 46, 0.72) 0%, rgba(18, 18, 20, 0.80) 100%)"
         };
       };
 
@@ -1122,7 +1121,7 @@ const haptic = (type) => {
             onMouseMove={handleMouseMove}
             className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] w-full break-inside-avoid mb-3 outline-none`}
             style={{
-              background: 'transparent',
+              background: bento.image ? 'transparent' : bento.bgGradient,
               boxShadow: isHovered
                 ? `0 24px 60px -15px rgba(0,0,0,0.5), 0 12px 20px -10px rgba(0,0,0,0.4)`
                 : `0 16px 40px -12px rgba(0,0,0,0.4)`,
@@ -1146,16 +1145,6 @@ const haptic = (type) => {
                 alt=""
                 loading="lazy"
                 className={`absolute inset-0 w-full h-full ${bento.objectFit || 'object-cover'} brightness-[0.6] group-hover:brightness-[0.75] group-hover:scale-105 transition-all duration-[900ms] pointer-events-none z-0`}
-              />
-            )}
-
-            {/* AI hero img (only AI card) */}
-            {isAI && (
-              <img
-                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80"
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover opacity-[0.22] mix-blend-luminosity group-hover:opacity-[0.34] group-hover:scale-105 transition-all duration-[900ms] pointer-events-none z-0"
               />
             )}
 
