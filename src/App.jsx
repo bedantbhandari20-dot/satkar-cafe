@@ -1239,17 +1239,84 @@ const haptic = (type) => {
         allItems.push({ type: 'full_menu', span: 1 });
         allItems.push({ type: 'ai_assistant', span: 2 });
 
-        // Interleave into Left and Right columns for CSS columns-2
+        const photoItems = [];
+        const nonPhotoItems = [];
+
+        allItems.forEach(item => {
+          if (item.type === 'category') {
+             const b = getBentoDetails(item.data.id, item.data.desc);
+             if (b.image || item.data.imageUrl) photoItems.push(item);
+             else nonPhotoItems.push(item);
+          } else {
+             nonPhotoItems.push(item);
+          }
+        });
+
+        // Push non-photo cards to the absolute end
+        const finalOrder = [...photoItems, ...nonPhotoItems];
+
+        // Interleave into Left and Right columns for flex masonry
         const leftColumn = [];
         const rightColumn = [];
         
-        allItems.forEach((item, index) => {
+        finalOrder.forEach((item, index) => {
           if (index % 2 === 0) leftColumn.push(item);
           else rightColumn.push(item);
         });
 
-        return [...leftColumn, ...rightColumn];
+        return { leftColumn, rightColumn };
       }, [categories]);
+
+      const renderGridItem = (item, idx) => {
+        if (item.type === 'category') {
+          const c = item.data;
+          const bento = { ...getBentoDetails(c.id, c.desc) };
+          if (c.imageUrl) bento.image = c.imageUrl;
+          
+          return renderBentoCard({
+            keyId: c.id,
+            hoverKey: `cat-${c.id}`,
+            span: item.span === 2 ? 'col-span-2' : 'col-span-1',
+            bento: bento,
+            label: c.label,
+            desc: c.desc || bento.desc,
+            kicker: bento.badge,
+            onClick: () => { setActiveCategory(c.id); setView('menu'); },
+            iconNode: <CategoryIcon icon={c.id} />,
+          });
+        }
+        if (item.type === 'full_menu') {
+          const bento = getBentoDetails('Full Menu', 'Browse the complete selection');
+          return renderBentoCard({
+            keyId: 'full_menu',
+            hoverKey: 'cat-full_menu',
+            span: item.span === 2 ? 'col-span-2' : 'col-span-1',
+            bento: bento,
+            label: 'Full Menu',
+            desc: bento.desc,
+            kicker: bento.badge,
+            onClick: () => { setActiveCategory('All'); setView('menu'); },
+            iconNode: <CategoryIcon icon="Menu" />,
+          });
+        }
+        if (item.type === 'ai_assistant') {
+          const bento = getBentoDetails('Ask Satkar AI', "Not sure what to order? Let's chat");
+          bento.accentColor = '#E2FB52'; // Override for AI
+          return renderBentoCard({
+            keyId: 'ai_assistant',
+            hoverKey: 'cat-ai_assistant',
+            span: item.span === 2 ? 'col-span-2' : 'col-span-1',
+            bento: bento,
+            label: 'Ask Satkar AI',
+            desc: "Not sure what to order? Let's chat",
+            kicker: 'Assistant',
+            onClick: () => setView('assistant'),
+            iconNode: <Icons.Sparkles className="w-[18px] h-[18px]" strokeWidth={2} />,
+            isAI: true,
+          });
+        }
+        return null;
+      };
 
       return (
         <div className={`${cartCount > 0 ? 'pb-44' : 'pb-24'} animate-fade-in relative z-10 w-full overflow-x-hidden`}>
@@ -1415,57 +1482,13 @@ const haptic = (type) => {
               <span className="font-sans text-[8.5px] font-bold tracking-[0.22em] uppercase text-white/40 tabular-nums">{categories.length + 2} Chapters</span>
             </div>
 
-            <div className="columns-2 gap-3">
-              {packedGridItems.map((item, idx) => {
-                if (item.type === 'category') {
-                  const c = item.data;
-                  const bento = { ...getBentoDetails(c.id, c.desc) };
-                  if (c.imageUrl) bento.image = c.imageUrl;
-                  
-                  return renderBentoCard({
-                    keyId: c.id,
-                    hoverKey: `cat-${c.id}`,
-                    span: item.span === 2 ? 'col-span-2' : 'col-span-1',
-                    bento: bento,
-                    label: c.label,
-                    desc: c.desc || bento.desc,
-                    kicker: bento.badge,
-                    onClick: () => { setActiveCategory(c.id); setView('menu'); },
-                    iconNode: <CategoryIcon icon={c.id} />,
-                  });
-                }
-                if (item.type === 'full_menu') {
-                  const bento = getBentoDetails('Full Menu', 'Browse the complete selection');
-                  return renderBentoCard({
-                    keyId: 'full_menu',
-                    hoverKey: 'cat-full_menu',
-                    span: item.span === 2 ? 'col-span-2' : 'col-span-1',
-                    bento: bento,
-                    label: 'Full Menu',
-                    desc: bento.desc,
-                    kicker: bento.badge,
-                    onClick: () => { setActiveCategory('All'); setView('menu'); },
-                    iconNode: <CategoryIcon icon="Menu" />,
-                  });
-                }
-                if (item.type === 'ai_assistant') {
-                  const bento = getBentoDetails('Ask Satkar AI', "Not sure what to order? Let's chat");
-                  bento.accentColor = '#E2FB52'; // Override for AI
-                  return renderBentoCard({
-                    keyId: 'ai_assistant',
-                    hoverKey: 'cat-ai_assistant',
-                    span: item.span === 2 ? 'col-span-2' : 'col-span-1',
-                    bento: bento,
-                    label: 'Ask Satkar AI',
-                    desc: "Not sure what to order? Let's chat",
-                    kicker: 'Assistant',
-                    onClick: () => setView('assistant'),
-                    iconNode: <Icons.Sparkles className="w-[18px] h-[18px]" strokeWidth={2} />,
-                    isAI: true,
-                  });
-                }
-                return null;
-              })}
+            <div className="flex gap-3 items-start">
+              <div className="flex-1 flex flex-col w-1/2">
+                {packedGridItems.leftColumn.map(renderGridItem)}
+              </div>
+              <div className="flex-1 flex flex-col w-1/2">
+                {packedGridItems.rightColumn.map(renderGridItem)}
+              </div>
             </div>
           </div>
 
