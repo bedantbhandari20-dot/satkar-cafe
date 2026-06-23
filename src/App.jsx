@@ -1423,14 +1423,16 @@ const haptic = (type) => {
               {packedGridItems.map((item, idx) => {
                 if (item.type === 'category') {
                   const c = item.data;
-                  const bento = getBentoDetails(c.id, c.desc);
+                  const bento = { ...getBentoDetails(c.id, c.desc) };
+                  if (c.imageUrl) bento.image = c.imageUrl;
+                  
                   return renderBentoCard({
                     keyId: c.id,
                     hoverKey: `cat-${c.id}`,
                     span: item.span === 2 ? 'col-span-2' : 'col-span-1',
                     bento: bento,
                     label: c.label,
-                    desc: bento.desc,
+                    desc: c.desc || bento.desc,
                     kicker: bento.badge,
                     onClick: () => { setActiveCategory(c.id); setView('menu'); },
                     iconNode: <CategoryIcon icon={c.id} />,
