@@ -1160,36 +1160,14 @@ const haptic = (type) => {
             }} />
 
             {/* Content */}
-            <div className="relative z-10 p-[18px] flex flex-col h-full">
-              {/* Top row: icon tile + accent dot */}
-              <div className="flex items-start justify-between">
-                <div
-                  className="relative w-11 h-11 flex items-center justify-center rounded-[13px] group-hover:scale-[1.06] transition-transform duration-[500ms]"
-                  style={{
-                    background: `linear-gradient(135deg, ${accent}22 0%, ${accent}06 100%)`,
-                    border: `1px solid ${bento.borderColor}`,
-                    color: accent,
-                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.14), 0 6px 18px -6px ${bento.glowColor}`,
-                  }}
-                >
-                  {iconNode}
-                </div>
+            <div className="relative z-10 p-[18px] flex flex-col h-full items-center justify-center text-center">
 
-                {/* Accent dot indicator */}
-                <span className="relative flex items-center justify-center w-1.5 h-1.5 mt-1.5 rounded-full transition-all duration-500" style={{
-                  background: accent,
-                  boxShadow: isHovered ? `0 0 12px ${accent}, 0 0 4px ${accent}` : `0 0 4px ${accent}80`,
-                  opacity: isHovered ? 1 : 0.6,
-                }} />
-              </div>
-
-              {/* Bottom content block */}
-              <div className="mt-auto pt-4 pr-8">
-
+              {/* Centered content block */}
+              <div className="mt-auto mb-auto pt-4 flex flex-col items-center">
 
                 {/* Title — Fraunces serif, refined */}
                 <div
-                  className="font-display text-[20px] leading-[1.05] tracking-[-0.015em] mb-1.5 transition-colors duration-300"
+                  className="font-display text-[20px] leading-[1.05] tracking-widest uppercase mb-1.5 transition-colors duration-300"
                   style={{
                     color: isHovered ? accent : '#ffffff',
                     fontVariationSettings: "'opsz' 144, 'wght' 450",
