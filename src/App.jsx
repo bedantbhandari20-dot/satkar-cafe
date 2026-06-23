@@ -1144,7 +1144,7 @@ const haptic = (type) => {
                 src={bento.image}
                 alt=""
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover opacity-[0.25] mix-blend-luminosity group-hover:opacity-[0.45] group-hover:scale-105 transition-all duration-[900ms] pointer-events-none z-0"
+                className="absolute inset-0 w-full h-full object-cover brightness-[0.6] group-hover:brightness-[0.75] group-hover:scale-105 transition-all duration-[900ms] pointer-events-none z-0"
               />
             )}
 
