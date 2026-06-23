@@ -1028,7 +1028,7 @@ const haptic = (type) => {
           badgeBg: "rgba(233, 180, 108, 0.10)",
           badgeBorder: "rgba(233, 180, 108, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(50, 42, 35, 0.76) 0%, rgba(20, 16, 13, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600&auto=format&fit=crop"
+          image: "/beverages.jpg"
         },
         "Bar": {
           span: "col-span-1",
@@ -1040,7 +1040,7 @@ const haptic = (type) => {
           badgeBg: "rgba(130, 207, 162, 0.10)",
           badgeBorder: "rgba(130, 207, 162, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(30, 48, 38, 0.76) 0%, rgba(12, 18, 14, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600&auto=format&fit=crop"
+          image: "/bar.jpg"
         },
         "Hookah": {
           span: "col-span-2",
@@ -1052,7 +1052,7 @@ const haptic = (type) => {
           badgeBg: "rgba(191, 155, 255, 0.10)",
           badgeBorder: "rgba(191, 155, 255, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(40, 32, 55, 0.76) 0%, rgba(15, 12, 22, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1516812891225-c651f6186987?q=80&w=600&auto=format&fit=crop"
+          image: "/hookah.jpg"
         },
         "Main Eats": {
           span: "col-span-2",
@@ -1064,7 +1064,7 @@ const haptic = (type) => {
           badgeBg: "rgba(255, 122, 92, 0.10)",
           badgeBorder: "rgba(255, 122, 92, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(52, 32, 28, 0.76) 0%, rgba(20, 12, 10, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop"
+          image: "/maineats.jpg"
         },
         "Snacks & Starters": {
           span: "col-span-1",
@@ -1076,7 +1076,7 @@ const haptic = (type) => {
           badgeBg: "rgba(255, 181, 71, 0.10)",
           badgeBorder: "rgba(255, 181, 71, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(50, 38, 28, 0.76) 0%, rgba(18, 14, 10, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop"
+          image: "/snacks.jpg"
         },
         "Bakery & Desserts": {
           span: "col-span-2",
@@ -1088,7 +1088,7 @@ const haptic = (type) => {
           badgeBg: "rgba(245, 194, 112, 0.10)",
           badgeBorder: "rgba(245, 194, 112, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(52, 42, 32, 0.76) 0%, rgba(20, 16, 12, 0.86) 100%)",
-          image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=600&auto=format&fit=crop"
+          image: "/bakery.jpg"
         }
       };
 
