@@ -1209,38 +1209,46 @@ const haptic = (type) => {
 
       // Dynamic Bento Grid Packing Algorithm (Tetris-style perfect alignment)
       const packedGridItems = useMemo(() => {
-        const span2 = [];
-        const span1 = [];
-        
-        categories.forEach(c => {
-          const bento = getBentoDetails(c.id, c.desc);
-          if (bento.span === 'col-span-2') {
-            span2.push({ type: 'category', data: c, span: 2 });
-          } else {
-            span1.push({ type: 'category', data: c, span: 1 });
-          }
+        const preferredOrder = [
+          'Main Eats',
+          'Beverages',
+          'Snacks & Starters',
+          'Bakery & Desserts',
+          'Hookah',
+          'Bar'
+        ];
+
+        // Sort categories by requested visual order
+        const sortedCats = [...categories].sort((a, b) => {
+          const indexA = preferredOrder.indexOf(a.id);
+          const indexB = preferredOrder.indexOf(b.id);
+          if (indexA === -1 && indexB === -1) return 0;
+          if (indexA === -1) return 1;
+          if (indexB === -1) return -1;
+          return indexA - indexB;
         });
+
+        // Convert to grid items
+        const allItems = sortedCats.map(c => ({
+          type: 'category',
+          data: c,
+          span: getBentoDetails(c.id, c.desc).span === 'col-span-2' ? 2 : 1
+        }));
         
-        // Push manual items
-        span1.push({ type: 'full_menu', span: 1 });
-        span2.push({ type: 'ai_assistant', span: 2 });
+        // Append static utility items
+        allItems.push({ type: 'full_menu', span: 1 });
+        allItems.push({ type: 'ai_assistant', span: 2 });
+
+        // Interleave into Left and Right columns for CSS columns-2
+        const leftColumn = [];
+        const rightColumn = [];
         
-        const packed = [];
-        let s2Index = 0;
-        let s1Index = 0;
-        let alternate = true;
-        
-        while (s2Index < span2.length || s1Index < span1.length) {
-          if (alternate) {
-            if (s2Index < span2.length) packed.push(span2[s2Index++]);
-            if (s1Index < span1.length) packed.push(span1[s1Index++]);
-          } else {
-            if (s1Index < span1.length) packed.push(span1[s1Index++]);
-            if (s2Index < span2.length) packed.push(span2[s2Index++]);
-          }
-          alternate = !alternate;
-        }
-        return packed;
+        allItems.forEach((item, index) => {
+          if (index % 2 === 0) leftColumn.push(item);
+          else rightColumn.push(item);
+        });
+
+        return [...leftColumn, ...rightColumn];
       }, [categories]);
 
       return (
