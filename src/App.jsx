@@ -1028,8 +1028,7 @@ const haptic = (type) => {
           badgeBg: "rgba(233, 180, 108, 0.10)",
           badgeBorder: "rgba(233, 180, 108, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(50, 42, 35, 0.76) 0%, rgba(20, 16, 13, 0.86) 100%)",
-          image: "/beverages.jpg",
-          objectFit: "object-contain"
+          image: "/beverages.jpg"
         },
         "Bar": {
           span: "col-span-1",
@@ -1041,8 +1040,7 @@ const haptic = (type) => {
           badgeBg: "rgba(130, 207, 162, 0.10)",
           badgeBorder: "rgba(130, 207, 162, 0.25)",
           bgGradient: "linear-gradient(160deg, rgba(30, 48, 38, 0.76) 0%, rgba(12, 18, 14, 0.86) 100%)",
-          image: "/bar.jpg",
-          objectFit: "object-contain"
+          image: "/bar.jpg"
         },
         "Hookah": {
           span: "col-span-2",
