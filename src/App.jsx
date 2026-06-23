@@ -1121,10 +1121,10 @@ const haptic = (type) => {
             className={`group relative text-left rounded-[26px] overflow-hidden flex flex-col active:scale-[0.975] transition-all duration-[600ms] w-full break-inside-avoid mb-3`}
             style={{
               background: bento.bgGradient,
-              border: `1px solid ${isHovered ? bento.borderColor : 'transparent'}`,
+              border: `1px solid transparent`,
               boxShadow: isHovered
-                ? `0 24px 70px -20px ${bento.glowColor}, 0 8px 20px -8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.16)`
-                : `0 16px 48px -18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.10)`,
+                ? `0 24px 70px -15px ${bento.glowColor}, 0 12px 30px -10px rgba(0,0,0,0.8)`
+                : `0 16px 48px -12px rgba(0,0,0,0.85)`,
               backdropFilter: 'blur(22px)',
               WebkitBackdropFilter: 'blur(22px)',
               minHeight: (label.length % 2 === 0 || span === 'col-span-2') ? '210px' : '170px',
@@ -1188,13 +1188,14 @@ const haptic = (type) => {
                   style={{
                     color: isHovered ? accent : '#ffffff',
                     fontVariationSettings: "'opsz' 144, 'wght' 450",
+                    textShadow: '0 2px 10px rgba(0,0,0,0.8)'
                   }}
                 >
                   {label}
                 </div>
 
                 {/* Subtitle */}
-                <div className="font-sans text-[9px] leading-[1.45] text-white/80 font-medium line-clamp-1 group-hover:text-white transition-colors duration-300">
+                <div className="font-sans text-[9px] leading-[1.45] text-white/80 font-medium line-clamp-1 group-hover:text-white transition-colors duration-300" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.9)' }}>
                   {desc}
                 </div>
               </div>
