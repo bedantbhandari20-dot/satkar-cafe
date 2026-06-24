@@ -77,13 +77,23 @@ const haptic = (type) => {
       }, 3000);
     };
 
-    const fuzzyMatch = (query, str) => {
-      const q = query.toLowerCase().replace(/\s+/g,'');
-      const s = str.toLowerCase();
-      if (s.includes(q)) return 1.0;
-      let qi = 0;
-      for (let i = 0; i < s.length && qi < q.length; i++) { if (s[i] === q[qi]) qi++; }
-      return qi === q.length ? 0.5 : 0;
+    const searchMatch = (query, item) => {
+      if (!query) return true;
+      const q = query.toLowerCase().trim();
+      const tokens = q.split(/\s+/);
+      const target = `${item.name} ${item.description || ''} ${item.category || ''} ${item.subCategory || ''}`.toLowerCase();
+      
+      if (target.includes(q)) return true;
+      if (tokens.every(token => target.includes(token))) return true;
+      
+      if (tokens.length === 1) {
+        const s = item.name.toLowerCase();
+        let qi = 0;
+        const qStr = q.replace(/\s+/g,'');
+        for (let i = 0; i < s.length && qi < qStr.length; i++) { if (s[i] === qStr[qi]) qi++; }
+        if (qi === qStr.length && qStr.length > 2) return true;
+      }
+      return false;
     };
     // ─── Hooks ───
     const useSmartContext = () => {
@@ -1738,7 +1748,7 @@ const haptic = (type) => {
         if (dietary === "veg") res = res.filter(m => m.foodType === 'veg');
         if (dietary === "nonveg") res = res.filter(m => m.foodType === 'non-veg');
         if (dietary === "spicy") res = res.filter(m => m.flavorProfile.includes('spicy'));
-        if (search) res = res.filter(m => fuzzyMatch(search, m.name) > 0);
+        if (search) res = res.filter(m => searchMatch(search, m));
         return res;
       }, [activeCategory, subCat, search, dietary, menuData]);
 
@@ -4153,7 +4163,7 @@ const haptic = (type) => {
           <div>
             <h3 className="text-[10px] text-espresso-400 font-bold uppercase tracking-widest mb-3 px-1">{search ? 'Search Results' : 'All Dishes'}</h3>
             <div className="space-y-2">
-              {(search ? nonSpecials.filter(m => fuzzyMatch(search, m.name) > 0) : nonSpecials).slice(0, 15).map(m => (
+              {(search ? nonSpecials.filter(m => searchMatch(search, m)) : nonSpecials).slice(0, 15).map(m => (
                 <div key={m.id} className="flex items-center justify-between p-3 bg-white border border-espresso-100 shadow-sm rounded-2xl opacity-80 hover:opacity-100 transition-opacity">
                   <div className="flex items-center gap-3">
                     <img src={m.imageUrl} alt="" className="w-10 h-10 rounded-xl object-cover grayscale" />
@@ -4582,7 +4592,7 @@ const haptic = (type) => {
           </div>
 
           <div className="space-y-3">
-             {(search ? menuData.filter(m => fuzzyMatch(search, m.name) > 0) : menuData).map(m => (
+             {(search ? menuData.filter(m => searchMatch(search, m)) : menuData).map(m => (
                 <div key={m.id} className="flex items-center justify-between p-4 bg-white border border-espresso-100 shadow-sm rounded-2xl cursor-pointer hover:bg-sand-100 transition-colors" onClick={()=>setEditItem(m)}>
                   <div className="flex items-center gap-3">
                     <img src={m.imageUrl} alt="" className={`w-12 h-12 rounded-xl object-cover ${!m.inStock?'grayscale opacity-50':''}`} />
