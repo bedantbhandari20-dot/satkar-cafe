@@ -1,5 +1,6 @@
 
     import React, { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   SERVICE_CHARGE_RATE,
   ADMIN_PIN_HASH,
@@ -95,7 +96,7 @@ const haptic = (type) => {
       }
       return false;
     };
-    // ─── Hooks ───
+    // â”€â”€â”€ Hooks â”€â”€â”€
     const useSmartContext = () => {
       const [val, setVal] = useState({timeOfDay: 'afternoon', temperature: 28, isLiveWeather: false});
       useEffect(() => {
@@ -282,7 +283,7 @@ const haptic = (type) => {
       
       return { cart, addToCart, updateQty, clearCart, total, count };
     };
-    // ─── UI Primitives ───
+    // â”€â”€â”€ UI Primitives â”€â”€â”€
     const Icons = {
       Coffee: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>,
       Pizza: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M15 11l-5 5"/><path d="M5 10l4.5 4.5"/><path d="M2 11c0 5.5 4.5 10 10 10s10-4.5 10-10c0-5.5-4.5-10-10-10C6.5 1 2 5.5 2 11z"/><path d="M22 11h-4"/><path d="M12 2v4"/><path d="M2 11h4"/><path d="M12 22v-4"/></svg>,
@@ -297,6 +298,7 @@ const haptic = (type) => {
       CheckCircle: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>,
       Sparkles: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><path d="M12 3l1.912 5.813a2 2 0 001.275 1.275L21 12l-5.813 1.912a2 2 0 00-1.275 1.275L12 21l-1.912-5.813a2 2 0 00-1.275-1.275L3 12l5.813-1.912a2 2 0 001.275-1.275L12 3z"/></svg>,
       Search: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
+      Mic: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>,
       Send: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
       Filter: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>,
       ChevronRight: props => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" {...props}><polyline points="9 18 15 12 9 6"/></svg>,
@@ -547,12 +549,12 @@ const haptic = (type) => {
           return () => clearTimeout(t);
         }
         if (phase === 'hold' && isDataReady) {
-          // Data ready — start the cinematic exit
+          // Data ready â€” start the cinematic exit
           const t = setTimeout(() => setPhase('exit'), 400);
           return () => clearTimeout(t);
         }
         if (phase === 'hold' && !isDataReady) {
-          // Data not ready yet — show loading dots, wait
+          // Data not ready yet â€” show loading dots, wait
           return;
         }
         if (phase === 'exit') {
@@ -645,7 +647,7 @@ const haptic = (type) => {
           
           <div className="flex flex-col items-center relative z-10 w-full">
             
-            {/* Brand name — same font as hero for seamless morph */}
+            {/* Brand name â€” same font as hero for seamless morph */}
             <div 
               ref={textRef} 
               className="flex items-baseline origin-bottom" 
@@ -676,7 +678,7 @@ const haptic = (type) => {
               ))}
             </div>
             
-            {/* Divider line — expands from center */}
+            {/* Divider line â€” expands from center */}
             <div 
               ref={lineRef}
               className="mt-4 h-[1px] rounded-full origin-center"
@@ -690,7 +692,7 @@ const haptic = (type) => {
               }}
             />
             
-            {/* Subtitle — same style as hero for morph sync */}
+            {/* Subtitle â€” same style as hero for morph sync */}
             <div
               ref={subtitleRef}
               style={{
@@ -713,7 +715,7 @@ const haptic = (type) => {
               </span>
             </div>
             
-            {/* Loading dots — appear only while waiting for data */}
+            {/* Loading dots â€” appear only while waiting for data */}
             <div 
               ref={dotRef}
               className="mt-12 flex gap-2"
@@ -775,16 +777,25 @@ const haptic = (type) => {
       );
     });
 
-    // ─── Daily Special Carousel ───
+    // â”€â”€â”€ Daily Special Carousel â”€â”€â”€
     const DailySpecialCarousel = memo(({ specials, onSelect }) => {
       const [activeIndex, setActiveIndex] = useState(0);
       const [touchStart, setTouchStart] = useState(null);
       const [progress, setProgress] = useState(0);
-      const DURATION = 5000;
+      const [isTransitioning, setIsTransitioning] = useState(false);
+      const DURATION = 6000;
       const frameRef = useRef(null);
       const startTimeRef = useRef(null);
 
-      const startAutoPlay = () => {
+      const goTo = useCallback((idx) => {
+        setIsTransitioning(true);
+        setTimeout(() => {
+          setActiveIndex(idx);
+          setIsTransitioning(false);
+        }, 400);
+      }, []);
+
+      const startAutoPlay = useCallback(() => {
         if (specials.length <= 1) return;
         setProgress(0);
         startTimeRef.current = Date.now();
@@ -796,7 +807,7 @@ const haptic = (type) => {
           setProgress(pct);
           
           if (elapsed >= DURATION) {
-            setActiveIndex(prev => (prev + 1) % specials.length);
+            goTo((activeIndex + 1) % specials.length);
             startTimeRef.current = Date.now();
             setProgress(0);
           }
@@ -805,14 +816,14 @@ const haptic = (type) => {
         
         if (frameRef.current) cancelAnimationFrame(frameRef.current);
         frameRef.current = requestAnimationFrame(animate);
-      };
+      }, [activeIndex, specials.length, goTo]);
 
       useEffect(() => {
         startAutoPlay();
         return () => {
           if (frameRef.current) cancelAnimationFrame(frameRef.current);
         };
-      }, [activeIndex, specials.length]);
+      }, [startAutoPlay]);
 
       const handleTouchStart = (e) => {
         if (frameRef.current) cancelAnimationFrame(frameRef.current);
@@ -823,17 +834,20 @@ const haptic = (type) => {
         if (!touchStart) return;
         const diff = touchStart - e.touches[0].clientX;
         if (Math.abs(diff) > 50) {
-          if (diff > 0) setActiveIndex(prev => (prev + 1) % specials.length);
-          else setActiveIndex(prev => (prev - 1 + specials.length) % specials.length);
+          if (diff > 0) goTo((activeIndex + 1) % specials.length);
+          else goTo((activeIndex - 1 + specials.length) % specials.length);
           setTouchStart(null);
         }
       };
 
       if (!specials || specials.length === 0) return null;
 
+      const item = specials[activeIndex];
+      const isSig = item.isSignatureItem || INCLUDED_SIGNATURE_NAMES.includes(item.name);
+
       return (
         <div 
-          className="relative w-full overflow-hidden pb-2 select-none" 
+          className="relative w-full select-none" 
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={() => {
@@ -841,134 +855,172 @@ const haptic = (type) => {
             startAutoPlay();
           }}
         >
-          {/* Magazine Hero Cards */}
-          <div className="relative h-[360px] w-full flex items-center justify-center perspective-[1200px]">
-            {specials.map((item, i) => {
-              const diff = (i - activeIndex + specials.length) % specials.length;
-              const isCenter = diff === 0;
-              const isRight = diff === 1 || (specials.length === 2 && diff === 1 && touchStart);
-              const isLeft = diff === specials.length - 1;
-              
-              if (!isCenter && !isRight && !isLeft && specials.length > 2) return null;
+          {/* Main Card â€” Full-bleed editorial spotlight */}
+          <div 
+            className="relative w-full rounded-[32px] overflow-hidden cursor-pointer active:scale-[0.985] transition-transform duration-300"
+            style={{ 
+              aspectRatio: '3 / 4',
+              boxShadow: '0 40px 80px -20px rgba(28,18,8,0.55), 0 0 0 1px rgba(255,255,255,0.06)',
+            }}
+            onClick={() => onSelect(item)}
+          >
+            {/* Image with cinematic Ken Burns */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#1c1208]">
+              <img 
+                src={item.imageUrl} 
+                alt={item.name}
+                loading="lazy"
+                className="w-full h-full object-cover"
+                style={{ 
+                  transform: isTransitioning ? 'scale(1.0)' : 'scale(1.15)', 
+                  transition: isTransitioning ? 'opacity 400ms ease' : `transform ${DURATION}ms linear`,
+                  opacity: isTransitioning ? 0.3 : 1,
+                  willChange: 'transform, opacity',
+                }} 
+              />
+            </div>
+            
+            {/* Layered cinematic vignettes */}
+            <div className="absolute inset-0 z-10 pointer-events-none" style={{ 
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 20%, transparent 35%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.92) 100%)' 
+            }} />
+            <div className="absolute inset-0 z-10 pointer-events-none" style={{ 
+              background: 'radial-gradient(ellipse at 50% 100%, transparent 50%, rgba(0,0,0,0.3) 100%)' 
+            }} />
 
-              // Elevated Spring Physics style calculations
-              let transform = 'translate3d(0, 0, 0) scale(1)';
-              let zIndex = 10;
-              let opacity = 1;
-              let filter = 'blur(0px)';
+            {/* Top row â€” Index counter & Signature badge */}
+            <div className="absolute top-0 left-0 right-0 z-20 flex items-start justify-between p-5">
+              {/* Issue-style numbering */}
+              <div className="flex items-center gap-2" style={{
+                opacity: isTransitioning ? 0 : 1,
+                transform: isTransitioning ? 'translateY(-8px)' : 'translateY(0)',
+                transition: 'all 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms'
+              }}>
+                <span className="font-price text-[11px] font-bold text-white/40 tracking-widest">{String(activeIndex + 1).padStart(2, '0')}</span>
+                <span className="w-6 h-px bg-white/25" />
+                <span className="font-price text-[11px] font-bold text-white/25 tracking-widest">{String(specials.length).padStart(2, '0')}</span>
+              </div>
 
-              if (!isCenter) {
-                zIndex = 5;
-                opacity = 0.45;
-                filter = 'blur(4px)';
-                const sign = isLeft ? -1 : 1;
-                // Peek-a-boo offset
-                transform = `translate3d(${sign * 85}%, 0, -100px) scale(0.88)`;
-              }
-
-              return (
-                <div
-                  key={item.id}
-                  className="absolute w-[85%] h-full rounded-[28px] overflow-hidden cursor-pointer"
-                  style={{
-                    transform, zIndex, opacity, filter,
-                    transition: 'all 800ms cubic-bezier(0.19, 1, 0.22, 1)',
-                    boxShadow: isCenter ? '0 30px 60px -20px rgba(28,18,8,0.7), 0 0 0 1px rgba(255,255,255,0.1)' : 'none',
-                    willChange: 'transform, opacity, filter'
-                  }}
-                  onClick={() => {
-                     if (isCenter) onSelect(item);
-                     else setActiveIndex(i);
+              {isSig && (
+                <div 
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                  style={{ 
+                    background: 'rgba(20, 12, 6, 0.6)', 
+                    border: '1px solid rgba(217,174,99,0.25)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    opacity: isTransitioning ? 0 : 1,
+                    transform: isTransitioning ? 'translateY(-8px)' : 'translateY(0)',
+                    transition: 'all 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 300ms'
                   }}
                 >
-                  {/* Ken Burns Image */}
-                  <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#1c1208]">
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover" 
-                      style={{ 
-                        transform: isCenter ? 'scale(1.12)' : 'scale(1.0)', 
-                        transition: isCenter ? `transform ${DURATION}ms linear` : 'transform 800ms ease',
-                        willChange: 'transform'
-                      }} 
-                    />
-                  </div>
-                  
-                  {/* Multi-stop Gradient Vignette for Text Legibility */}
-                  <div className="absolute inset-0 z-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 25%, transparent 40%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.95) 100%)' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D9AE63] animate-pulse" />
+                  <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#D9AE63]">Signature</span>
+                </div>
+              )}
+            </div>
 
-                  {/* Signature badge - Premium Floating Pill */}
-                  {(item.isSignatureItem || INCLUDED_SIGNATURE_NAMES.includes(item.name)) && (
-                    <div 
-                      className="absolute top-4 left-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full md:backdrop-blur-md transition-all duration-700 delay-300" 
-                      style={{ 
-                        background: 'rgba(20, 12, 6, 0.65)', 
-                        border: '1px solid rgba(217,174,99,0.3)',
-                        opacity: isCenter ? 1 : 0,
-                        transform: isCenter ? 'translateY(0)' : 'translateY(-10px)'
-                      }}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D9AE63] animate-pulse" />
-                      <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#D9AE63]">Signature</span>
-                    </div>
-                  )}
+            {/* Bottom editorial text block */}
+            <div className="absolute bottom-0 left-0 right-0 z-20 p-6 pb-7">
+              {/* Category kicker */}
+              <div style={{
+                opacity: isTransitioning ? 0 : 1,
+                transform: isTransitioning ? 'translateY(12px)' : 'translateY(0)',
+                transition: 'all 600ms cubic-bezier(0.2, 0.8, 0.2, 1) 100ms'
+              }}>
+                <span className="font-sans text-[9px] font-bold tracking-[0.3em] uppercase text-[#D9AE63]/90 mb-3 block">{item.subCategoryLabel || item.category}</span>
+              </div>
 
-                  {/* Editorial Text Block */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
-                    <div 
-                       className="transition-all duration-[900ms] delay-[100ms]"
-                       style={{ opacity: isCenter ? 1 : 0, transform: isCenter ? 'translateY(0)' : 'translateY(20px)' }}
-                    >
-                       <span className="font-sans text-[10px] font-bold tracking-[0.25em] uppercase text-white/70 mb-2 block">{item.subCategoryLabel || item.category}</span>
-                       <h3 className="font-display text-white text-[2.2rem] leading-[1.05] mb-5 tracking-tight drop-shadow-md" style={{ fontVariationSettings: "'wght' 500, 'opsz' 144" }}>
-                         {item.name}
-                       </h3>
-                       
-                       <div className="flex items-end justify-between">
-                         <div className="flex flex-col">
-                           <span className="font-sans text-[10px] uppercase tracking-widest text-white/50 mb-0.5">Price</span>
-                           <div className="flex items-baseline gap-1 text-white">
-                             <span className="font-price text-white/80 text-[12px]">Rs.</span>
-                             <span className="font-price text-[22px] font-bold">{item.price}</span>
-                           </div>
-                         </div>
-                         
-                         {/* Magnetic Action Button */}
-                         <div 
-                           className="flex items-center justify-center w-11 h-11 rounded-full active:scale-95 transition-transform shadow-lg" 
-                           style={{ background: 'linear-gradient(135deg, #D9AE63 0%, #B58A44 100%)', boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.4), 0 4px 14px rgba(0,0,0,0.4)' }}
-                         >
-                           <Icons.ChevronRight className="w-5 h-5 text-[#1a1005]" strokeWidth="2.5" />
-                         </div>
-                       </div>
-                    </div>
+              {/* Item name â€” large editorial serif */}
+              <div style={{
+                opacity: isTransitioning ? 0 : 1,
+                transform: isTransitioning ? 'translateY(16px)' : 'translateY(0)',
+                transition: 'all 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms'
+              }}>
+                <h3 
+                  className="font-display text-white leading-[0.95] mb-1 tracking-tight" 
+                  style={{ 
+                    fontVariationSettings: "'wght' 500, 'opsz' 144",
+                    fontSize: item.name.length > 18 ? '2rem' : '2.6rem',
+                    textShadow: '0 2px 20px rgba(0,0,0,0.5)'
+                  }}
+                >
+                  {item.name}
+                </h3>
+              </div>
+
+              {/* Thin separator */}
+              <div style={{
+                opacity: isTransitioning ? 0 : 1,
+                transition: 'opacity 500ms ease 250ms'
+              }}>
+                <div className="w-8 h-px bg-gradient-to-r from-[#D9AE63]/60 to-transparent my-4" />
+              </div>
+
+              {/* Price & CTA row */}
+              <div 
+                className="flex items-end justify-between"
+                style={{
+                  opacity: isTransitioning ? 0 : 1,
+                  transform: isTransitioning ? 'translateY(12px)' : 'translateY(0)',
+                  transition: 'all 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 350ms'
+                }}
+              >
+                <div className="flex flex-col">
+                  <span className="font-sans text-[9px] uppercase tracking-[0.2em] text-white/35 mb-1">Today's Price</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-price text-white/60 text-[12px]">Rs.</span>
+                    <span className="font-price text-[26px] font-bold text-white" style={{ letterSpacing: '-0.02em' }}>{item.price}</span>
                   </div>
                 </div>
-              );
-            })}
+                
+                {/* View CTA */}
+                <div 
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full active:scale-95 transition-transform" 
+                  style={{ 
+                    background: 'rgba(217, 174, 99, 0.12)', 
+                    border: '1px solid rgba(217,174,99,0.3)',
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                  }}
+                >
+                  <span className="font-sans text-[10px] font-semibold tracking-[0.15em] uppercase text-[#D9AE63]">View</span>
+                  <Icons.ChevronRight className="w-3.5 h-3.5 text-[#D9AE63]" strokeWidth="2.5" />
+                </div>
+              </div>
+            </div>
           </div>
           
-          {/* Story-Style Progress Bars */}
+          {/* Progress â€” Minimal story-style bars */}
           {specials.length > 1 && (
-            <div className="flex justify-center gap-2 mt-6 px-8">
+            <div className="flex justify-center gap-1.5 mt-5 px-2">
               {specials.map((_, i) => (
-                <div key={i} className="h-1 flex-1 rounded-full bg-espresso-200/40 overflow-hidden relative md:backdrop-blur-sm">
+                <button
+                  key={i}
+                  onClick={() => { goTo(i); }}
+                  className="h-[3px] flex-1 rounded-full overflow-hidden relative transition-all duration-300"
+                  style={{ 
+                    background: 'rgba(28,18,8,0.12)',
+                  }}
+                >
                   <div 
                     className="absolute top-0 left-0 bottom-0 rounded-full"
                     style={{
-                      background: 'linear-gradient(90deg, #D9AE63 0%, #B58A44 100%)',
+                      background: activeIndex === i 
+                        ? 'linear-gradient(90deg, #D9AE63 0%, #B58A44 100%)' 
+                        : (i < activeIndex ? 'rgba(181, 138, 68, 0.5)' : 'transparent'),
                       width: activeIndex === i ? `${progress}%` : (i < activeIndex ? '100%' : '0%'),
                       transition: activeIndex === i ? 'none' : 'width 0.3s ease'
                     }}
                   />
-                </div>
+                </button>
               ))}
             </div>
           )}
         </div>
       );
     });
+
 
     // ─── Screen Components ───
     const LandingScreen = memo(({ context, setView, setActiveCategory, loyalty, recent, setDetailItem, menuData, appConfig, categories, cartCount }) => {
@@ -1116,7 +1168,7 @@ const haptic = (type) => {
         };
       };
 
-      // Editorial Bento Card — refined material, kicker tagline, hover chevron CTA
+      // Editorial Bento Card â€” refined material, kicker tagline, hover chevron CTA
       const renderBentoCard = ({ keyId, hoverKey, span, bento, label, desc, kicker, onClick, iconNode, isAI = false }) => {
         const isHovered = hoveredCard === hoverKey;
         const accent = bento.accentColor;
@@ -1140,7 +1192,7 @@ const haptic = (type) => {
               transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
             }}
           >
-            {/* Top hairline highlight — simulated overhead light */}
+            {/* Top hairline highlight â€” simulated overhead light */}
             <div className="absolute inset-x-6 top-0 h-px pointer-events-none z-10 transition-opacity duration-500" style={{
               background: `linear-gradient(90deg, transparent 0%, ${accent} 50%, transparent 100%)`,
               opacity: isHovered ? 0.85 : 0.45,
@@ -1169,7 +1221,7 @@ const haptic = (type) => {
 
 
 
-            {/* Bottom inner shadow — depth */}
+            {/* Bottom inner shadow â€” depth */}
             <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none z-0" style={{
               background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.35) 100%)'
             }} />
@@ -1180,7 +1232,7 @@ const haptic = (type) => {
               {/* Centered content block */}
               <div className="flex flex-col items-center justify-center w-full">
 
-                {/* Title — Fraunces serif, refined */}
+                {/* Title â€” Fraunces serif, refined */}
                 <div
                   className="font-display text-[17px] leading-[1.05] tracking-widest uppercase mb-1.5 transition-colors duration-300"
                   style={{
@@ -1296,30 +1348,47 @@ const haptic = (type) => {
           });
         }
         if (item.type === 'full_menu') {
-          const bento = getBentoDetails('Full Menu', 'Browse the complete selection');
           return renderBentoCard({
             keyId: 'full_menu',
             hoverKey: 'cat-full_menu',
             span: item.span === 2 ? 'col-span-2' : 'col-span-1',
-            bento: bento,
-            label: 'Full Menu',
-            desc: bento.desc,
-            kicker: bento.badge,
+            bento: {
+              span: "col-span-1",
+              badge: "Complete Collection",
+              desc: "Browse the complete selection",
+              accentColor: "#A39171",
+              glowColor: "rgba(163, 145, 113, 0.18)",
+              borderColor: "rgba(163, 145, 113, 0.24)",
+              badgeBg: "rgba(163, 145, 113, 0.10)",
+              badgeBorder: "rgba(163, 145, 113, 0.25)",
+              bgGradient: "linear-gradient(135deg, rgba(40, 35, 32, 0.95) 0%, rgba(20, 18, 16, 0.98) 100%)",
+            },
+            label: 'The Classic Menu',
+            desc: 'Browse the complete selection',
+            kicker: 'Complete Collection',
             onClick: () => { setActiveCategory('All'); setView('menu'); },
-            iconNode: <CategoryIcon icon="Menu" />,
+            iconNode: <Icons.Search className="w-[18px] h-[18px]" strokeWidth={2} />,
           });
         }
         if (item.type === 'ai_assistant') {
-          const bento = getBentoDetails('Ask Satkar AI', "Not sure what to order? Let's chat");
-          bento.accentColor = '#E2FB52'; // Override for AI
           return renderBentoCard({
             keyId: 'ai_assistant',
             hoverKey: 'cat-ai_assistant',
             span: item.span === 2 ? 'col-span-2' : 'col-span-1',
-            bento: bento,
-            label: 'Ask Satkar AI',
-            desc: "Not sure what to order? Let's chat",
-            kicker: 'Assistant',
+            bento: {
+              span: "col-span-1",
+              badge: "Your Concierge",
+              desc: "Curated suggestions for your palate",
+              accentColor: "#D4AF37",
+              glowColor: "rgba(212, 175, 55, 0.18)",
+              borderColor: "rgba(212, 175, 55, 0.24)",
+              badgeBg: "rgba(212, 175, 55, 0.10)",
+              badgeBorder: "rgba(212, 175, 55, 0.25)",
+              bgGradient: "linear-gradient(135deg, rgba(45, 40, 32, 0.95) 0%, rgba(22, 18, 15, 0.98) 100%)",
+            },
+            label: 'Ask Satkar',
+            desc: "Curated suggestions for your palate",
+            kicker: 'Your Concierge',
             onClick: () => setView('assistant'),
             iconNode: <Icons.Sparkles className="w-[18px] h-[18px]" strokeWidth={2} />,
             isAI: true,
@@ -1363,9 +1432,9 @@ const haptic = (type) => {
             .ai-particle-3 { animation: floatParticle 6s ease-in-out 2.8s infinite; }
           `}</style>
 
-          {/* Hero Section — Immersive Editorial Design in native 9:16 aspect ratio */}
+          {/* Hero Section â€” Immersive Editorial Design in native 9:16 aspect ratio */}
           <div className="relative w-full aspect-[9/16] flex flex-col justify-end pt-12 pb-14 px-8 overflow-hidden bg-transparent">
-            {/* Hero-bound background video — mask physically dissolves into cream */}
+            {/* Hero-bound background video â€” mask physically dissolves into cream */}
             <video
               src="/mmm.mp4"
               poster="/poster.jpg"
@@ -1384,7 +1453,7 @@ const haptic = (type) => {
               }}
               className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
             />
-            {/* Subtle time-of-day tonal wash — masked the same way so it doesn't show a band */}
+            {/* Subtle time-of-day tonal wash â€” masked the same way so it doesn't show a band */}
             <div
               aria-hidden="true"
               className="absolute inset-0 z-0 opacity-[0.10] transition-all duration-1000 pointer-events-none"
@@ -1429,7 +1498,7 @@ const haptic = (type) => {
               </div>
             )}
  
-            {/* Hero Content — Centered & Elegant */}
+            {/* Hero Content â€” Centered & Elegant */}
             <div className="relative z-10 flex flex-col items-center text-center">
               <h1 className="leading-[0.85] flex flex-col items-center hero-brand-in">
                 <span
@@ -1482,7 +1551,7 @@ const haptic = (type) => {
             </div>
           </div>
  
-          {/* Menu Categories — Editorial Masonry Layout */}
+          {/* Menu Categories â€” Editorial Masonry Layout */}
           <div className="mx-5 mb-10 -mt-6 relative z-20">
             {/* Section header */}
             <div className="flex items-center gap-3 mb-5 px-1">
@@ -1505,14 +1574,18 @@ const haptic = (type) => {
           {/* Daily Highlight Carousel - Now Dynamic from Admin */}
           {signs && signs.length > 0 && (
             <div className="px-5 mb-14">
-              <div className="flex items-end justify-between mb-4">
+              <div className="flex items-end justify-between mb-5">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-display text-[1.5rem] leading-none text-espresso-950" style={{ fontVariationSettings: "'wght' 400, 'opsz' 144" }}>Daily Specials</span>
-                    <span className="w-2 h-2 rounded-full bg-brown-400 animate-pulse mt-1"></span>
+                  <span className="font-sans text-[9px] font-bold tracking-[0.3em] uppercase text-espresso-400 mb-2 block">Today's Curation</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-display text-[1.6rem] leading-none text-espresso-950" style={{ fontVariationSettings: "'wght' 450, 'opsz' 144" }}>Daily Specials</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D9AE63] animate-pulse mt-0.5"></span>
                   </div>
                 </div>
-                <span className="font-sans text-[10px] font-semibold text-espresso-400 tracking-wide pb-1">{signs.length} dishes</span>
+                <div className="flex items-center gap-1.5 pb-1">
+                  <span className="font-sans text-[9px] font-medium text-espresso-350 tracking-wide">Swipe</span>
+                  <Icons.ChevronRight className="w-3 h-3 text-espresso-300" strokeWidth="2" />
+                </div>
               </div>
               <DailySpecialCarousel 
                 specials={signs} 
@@ -1547,7 +1620,7 @@ const haptic = (type) => {
         </div>
       );
     });
-    // ─── Showcase Components (The Editorial Spine) ───
+    // â”€â”€â”€ Showcase Components (The Editorial Spine) â”€â”€â”€
     const ShowcaseItem = memo(({ item, onSelect, index, showSideLabel }) => {
       const frameRef  = useRef(null);
       const cardRef   = useRef(null);
@@ -1618,7 +1691,7 @@ const haptic = (type) => {
           const ratio  = (winH / 2 - center) / winH;
           const clamped = Math.max(-0.5, Math.min(0.5, ratio));
           
-          // Cards drift — subtle vertical only for side-by-side
+          // Cards drift â€” subtle vertical only for side-by-side
           const yOff = clamped * 12;
           card.style.transform = `translate3d(0, ${yOff}px, 0)`;
           
@@ -1656,9 +1729,15 @@ const haptic = (type) => {
           {alignment === 'right' && <div className="sc-tape sc-tape-tl" />}
 
           {/* Photo Card */}
-          <div ref={cardRef} className={`sc-card ${!item.inStock ? 'opacity-60 grayscale' : ''}`}>
+          <div ref={cardRef} className={`sc-card card-3d-tilt ${!item.inStock ? 'opacity-60 grayscale' : ''}`}>
             <img src={item.imageUrl} alt={item.name} loading="lazy" className="sc-card-img" />
             <div className="sc-card-veil" />
+
+            {isSig && (
+              <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" style={{ borderRadius: 'inherit' }}>
+                <div className="absolute top-0 bottom-0 w-[50%] animate-shimmer-sweep" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)' }} />
+              </div>
+            )}
             
             {!item.inStock && (
               <div className="absolute inset-0 z-20 flex items-center justify-center">
@@ -1892,7 +1971,7 @@ const haptic = (type) => {
 
             {showFilters && (
               <div className="animate-slide-up">
-                {/* ── Dietary Filter Row ── */}
+                {/* â”€â”€ Dietary Filter Row â”€â”€ */}
                 <div className="relative -mx-4 px-4 overflow-hidden">
                   <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#EDE8DD] to-transparent pointer-events-none z-10" />
                   <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#EDE8DD] to-transparent pointer-events-none z-10" />
@@ -1929,7 +2008,7 @@ const haptic = (type) => {
                   </div>
                 </div>
 
-                {/* ── Sub-category Filter Row ── */}
+                {/* â”€â”€ Sub-category Filter Row â”€â”€ */}
                 {subCategories.length > 1 && !search && (() => {
                   const catStyle = getCategoryStyles(activeCategory);
                   return (
@@ -1999,7 +2078,7 @@ const haptic = (type) => {
                   <div 
                     key={item.id} 
                     role="listitem" 
-                    className={`p-3.5 flex gap-4 cursor-pointer group relative transition-all duration-300 active:scale-[0.98] ${!mounted.current ? 'animate-rise-card' : 'opacity-100'}`}
+                    className={`p-3.5 flex gap-4 cursor-pointer group relative transition-all duration-300 active:scale-[0.98] card-3d-tilt ${!mounted.current ? 'animate-rise-card' : 'opacity-100'}`}
                     style={{
                       borderRadius: '24px',
                       background: 'linear-gradient(160deg, #FFFFFF 0%, var(--s-card) 100%)',
@@ -2028,6 +2107,12 @@ const haptic = (type) => {
                         >
                           <span className="text-espresso-800 font-display text-[9px] font-bold tracking-widest leading-tight">OUT OF</span>
                           <span className="text-[#B58A44] font-display text-[9px] font-bold tracking-widest leading-tight">STOCK</span>
+                        </div>
+                      )}
+                      
+                      {(item.isSignatureItem || INCLUDED_SIGNATURE_NAMES.includes(item.name)) && (
+                        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10" style={{ borderRadius: 'inherit' }}>
+                          <div className="absolute top-0 bottom-0 w-[50%] animate-shimmer-sweep" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)' }} />
                         </div>
                       )}
                       <img 
@@ -2108,7 +2193,7 @@ const haptic = (type) => {
         </div>
       );
     });
-    // ─── Sheet Components ───
+    // â”€â”€â”€ Sheet Components â”€â”€â”€
     const ItemDetailSheet = memo(({ item, onClose, addToCart, menuData }) => {
       const [qty, setQty] = useState(1);
       const [isClosing, setIsClosing] = useState(false);
@@ -2154,7 +2239,7 @@ const haptic = (type) => {
             onClick={() => { setIsClosing(true); setTimeout(onClose, 250); }}
           />
           
-          {/* Immersive Sheet — scale-fade instead of slide-up */}
+          {/* Immersive Sheet â€” scale-fade instead of slide-up */}
           <div 
             ref={sheetRef}
             className={`relative w-full max-w-md mx-auto flex flex-col pt-0 sm:mb-4 max-h-[92vh] overflow-y-auto hide-scrollbar scrollable-area overscroll-contain ${isClosing ? 'animate-immersive-close' : 'animate-immersive-open'}`}
@@ -2707,7 +2792,10 @@ const haptic = (type) => {
             ref={sheetRef}
             className={`relative w-full max-w-md mx-auto flex flex-col ${isClosing ? 'animate-slide-down' : 'animate-spring-sheet'} sm:mb-4 h-[88vh]`}
             style={{ 
-              background: 'var(--s-sheet)',
+              background: 'rgba(254, 252, 248, 0.85)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.6)',
               borderRadius: 'var(--r-sheet) var(--r-sheet) 0 0',
               boxShadow: '0 -8px 48px rgba(28, 18, 8, 0.12), 0 -24px 80px rgba(28, 18, 8, 0.08)'
             }}
@@ -2759,16 +2847,37 @@ const haptic = (type) => {
             
             <div 
               className="scrollable-area flex-1 overflow-y-auto px-6 py-4 hide-scrollbar"
-              style={{ background: 'var(--s-sheet)' }}
+              style={{ background: 'transparent' }}
             >
               {whatsappOpened ? (
                 <div className="h-full flex flex-col items-center justify-center text-center px-4 animate-fade-in">
-                  <div className="glass-card w-24 h-24 flex items-center justify-center mb-5" style={{ borderRadius: '50%' }}>
-                    <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 text-brown-600" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  <div className="relative mb-8">
+                    {/* Animated aura */}
+                    <div className="absolute inset-0 bg-[#D9AE63] rounded-full blur-2xl opacity-30 animate-pulse" />
+                    
+                    <div className="glass-card w-28 h-28 flex items-center justify-center relative z-10" style={{ borderRadius: '50%' }}>
+                      <svg viewBox="0 0 24 24" fill="none" className="w-12 h-12 text-[#D9AE63] animate-draw-line" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ strokeDasharray: 200, strokeDashoffset: 200 }}>
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </div>
                   </div>
-                  <p className="font-display text-2xl text-espresso-900 mb-2">Almost Done!</p>
-                  <p className="text-sm text-espresso-500 mb-8 max-w-[260px]">We've opened WhatsApp. Please hit send there to complete your order.</p>
-                  <button className="btn-primary w-full py-4 text-[15px] font-bold" onClick={() => { setIsClosing(true); setTimeout(onClose, 200); }}>Close Cart</button>
+                  <p className="font-display text-[2.5rem] text-espresso-950 mb-3 animate-fade-in-up" style={{ animationDelay: '0.2s', opacity: 0 }}>Almost Done!</p>
+                  <p className="text-[15px] text-espresso-600 mb-10 max-w-[280px] animate-fade-in-up" style={{ animationDelay: '0.4s', opacity: 0 }}>We've opened WhatsApp. Please hit send there to complete your order.</p>
+                  
+                  <button 
+                    className="w-full py-[18px] text-[15px] font-bold tracking-wide transition-all duration-300 active:scale-95 animate-fade-in-up" 
+                    style={{ 
+                      borderRadius: '16px',
+                      background: 'linear-gradient(135deg, #1c1208 0%, #3a2618 100%)',
+                      color: 'white',
+                      boxShadow: '0 8px 24px -6px rgba(28, 18, 8, 0.4)',
+                      animationDelay: '0.6s',
+                      opacity: 0
+                    }}
+                    onClick={() => { setIsClosing(true); setTimeout(onClose, 200); }}
+                  >
+                    Close Cart
+                  </button>
                 </div>
               ) : cart.cart.length === 0 ? (
                 <div 
@@ -3141,12 +3250,13 @@ const haptic = (type) => {
         </div>
       );
     });
-    // ─── AI Assistant Screen ───
-    const AssistantScreen = memo(({ context, back, setDetailItem, menuData, appConfig }) => {
+    // â”€â”€â”€ AI Assistant Screen â”€â”€â”€
+    const AssistantScreen = memo(({ context, back, setDetailItem, menuData, appConfig, cart }) => {
       const [messages, setMessages] = useState([]);
       const [input, setInput] = useState("");
       const [loading, setLoading] = useState(false);
       const [isTyping, setIsTyping] = useState(false);
+      const [isListening, setIsListening] = useState(false);
       const bottomRef = useRef(null);
       const messagesEndRef = useRef(null);
 
@@ -3291,6 +3401,43 @@ const haptic = (type) => {
         return { text: `${intro} ${names}. ${picks[0] ? picks[0].description : ''}`, items: picks };
       };
 
+      // Real Speech Recognition
+      const startListening = () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          alert("Voice recognition is not supported in this browser.");
+          return;
+        }
+        
+        setIsListening(true);
+        haptic('light');
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        
+        // Stop listening early if we need to close it manually
+        // We'll store recognition instance in a ref if we want to cancel, but for now simple state is fine.
+        
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          setInput(transcript);
+          setIsListening(false);
+          haptic('medium');
+        };
+        
+        recognition.onerror = (event) => {
+          console.error("Speech recognition error", event.error);
+          setIsListening(false);
+        };
+        
+        recognition.onend = () => {
+          setIsListening(false);
+        };
+        
+        recognition.start();
+      };
+
       const handleSend = async (text) => {
         if (!text.trim()) return;
         const userMsg = { role: 'user', content: text, timestamp: Date.now() };
@@ -3354,6 +3501,14 @@ const haptic = (type) => {
       
       // Dynamic suggestions based on conversation context
       const getDynamicSuggestions = () => {
+        const cartItems = cart?.cart || [];
+        if (cartItems.length > 0) {
+           const hasCoffee = cartItems.some(c => c.item.category === 'coffee' || c.item.category === 'beverage');
+           const hasFood = cartItems.some(c => c.item.category === 'food' || c.item.category === 'bakery' || c.item.category === 'snacks');
+           if (hasCoffee && !hasFood) return ["Add a pastry?", "Something savory", "Vegetarian options", "What's popular?"];
+           if (hasFood && !hasCoffee) return ["Need a drink?", "Add Coffee", "What's popular?"];
+        }
+        
         const lastMsg = messages[messages.length - 1];
         if (!lastMsg || lastMsg.role !== 'assistant') return quickReplies;
         
@@ -3494,28 +3649,40 @@ const haptic = (type) => {
               );
             })}
             
-            {/* Typing Indicator */}
+            {/* Generative UI Skeleton (Typing Indicator) */}
             {(loading || isTyping) && (
               <div 
-                className="self-start p-3.5 flex gap-1.5 items-center"
-                style={{ 
-                  borderRadius: '4px 20px 20px 20px',
-                  background: 'var(--s-card)',
-                  border: '1px solid rgba(160, 120, 90, 0.1)'
-                }}
+                className="self-start flex flex-col gap-3 w-full max-w-[88%] animate-fade-in"
+                style={{ transform: 'translateY(10px)' }}
               >
                 <div 
-                  className="w-1.5 h-1.5 rounded-full bg-espresso-400/60"
-                  style={{ animation: 'typingBounce 1.4s ease-in-out infinite' }}
-                />
+                  className="p-4 w-[75%]"
+                  style={{ 
+                    borderRadius: '4px 20px 20px 20px',
+                    background: 'linear-gradient(160deg, #FFFFFF 0%, var(--s-card) 100%)',
+                    border: '1px solid rgba(160, 120, 90, 0.14)',
+                    boxShadow: '0 1px 2px rgba(28,18,8,0.04), 0 10px 24px -14px rgba(28,18,8,0.18)'
+                  }}
+                >
+                  <div className="h-2.5 bg-espresso-200/50 rounded-full w-full mb-3 animate-pulse"></div>
+                  <div className="h-2.5 bg-espresso-200/50 rounded-full w-4/5 animate-pulse" style={{ animationDelay: '150ms' }}></div>
+                </div>
+                
                 <div 
-                  className="w-1.5 h-1.5 rounded-full bg-espresso-400/60"
-                  style={{ animation: 'typingBounce 1.4s ease-in-out infinite 0.2s' }}
-                />
-                <div 
-                  className="w-1.5 h-1.5 rounded-full bg-espresso-400/60"
-                  style={{ animation: 'typingBounce 1.4s ease-in-out infinite 0.4s' }}
-                />
+                  className="flex items-center gap-3 p-3 w-[85%]"
+                  style={{
+                    borderRadius: '18px',
+                    background: 'linear-gradient(160deg, #FFFFFF 0%, var(--s-card) 100%)',
+                    border: '1px solid rgba(160, 120, 90, 0.14)',
+                    boxShadow: '0 1px 2px rgba(28,18,8,0.04), 0 10px 24px -14px rgba(28,18,8,0.18)'
+                  }}
+                >
+                  <div className="w-14 h-14 rounded-[12px] bg-espresso-200/50 shrink-0 animate-pulse" style={{ animationDelay: '300ms' }}></div>
+                  <div className="flex-1 space-y-2.5">
+                    <div className="h-2.5 bg-espresso-200/50 rounded-full w-3/4 animate-pulse" style={{ animationDelay: '450ms' }}></div>
+                    <div className="h-2.5 bg-espresso-200/50 rounded-full w-1/2 animate-pulse" style={{ animationDelay: '600ms' }}></div>
+                  </div>
+                </div>
               </div>
             )}
             <div ref={bottomRef} />
@@ -3552,36 +3719,68 @@ const haptic = (type) => {
             )}
             
             {/* Input Field */}
-            <div className="flex gap-2.5 items-center mb-1">
-              <div className="flex-1 relative">
-                <input 
-                  type="text"
-                  value={input} 
-                  onChange={e=>setInput(e.target.value)} 
-                  placeholder={`Ask ${appConfig.aiName}...`} 
-                  className="w-full pl-5 pr-4 py-3 text-[15px] text-espresso-950 focus:outline-none placeholder:text-espresso-400"
-                  style={{ 
-                    background: 'var(--s-input)', 
-                    border: '1px solid rgba(28, 18, 8, 0.08)', 
-                    borderRadius: '24px'
-                  }}
-                  onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();handleSend(input);}}}
-                />
-              </div>
-              <button 
-                className={`w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-all haptic-medium ${input.trim() ? '' : 'opacity-40'}`}
-                style={input.trim() ? {
-                  background: 'linear-gradient(135deg, #D9AE63 0%, #B58A44 100%)',
-                  boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.35), 0 4px 16px rgba(140, 101, 45, 0.35)'
-                } : {
-                  background: 'rgba(160, 120, 90, 0.1)'
+            {isListening ? (
+              <div 
+                className="flex items-center justify-between px-6 py-2 h-[50px] mb-1 animate-fade-in" 
+                style={{ 
+                  background: 'linear-gradient(160deg, #FFFFFF 0%, var(--s-card) 100%)', 
+                  borderRadius: '24px', 
+                  border: '1px solid rgba(217, 174, 99, 0.4)', 
+                  boxShadow: '0 4px 20px -5px rgba(217, 174, 99, 0.3)' 
                 }}
-                onClick={()=>handleSend(input)}
-                disabled={!input.trim()}
               >
-                <Icons.Send className={`w-5 h-5 ${input.trim() ? 'text-espresso-950' : 'text-espresso-400'}`} strokeWidth="2.5" />
-              </button>
-            </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-sm font-display text-espresso-700 tracking-wide">Listening...</span>
+                </div>
+                <div className="flex items-center gap-1.5 h-full">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-1.5 bg-[#D9AE63] rounded-full animate-waveform" style={{ height: '6px', animationDelay: `${i * 0.15}s` }} />
+                  ))}
+                </div>
+                <button onClick={() => setIsListening(false)} className="text-espresso-400 hover:text-red-500 transition-colors haptic-light ml-4">
+                  <Icons.X className="w-5 h-5"/>
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2.5 items-center mb-1">
+                <div className="flex-1 relative">
+                  <input 
+                    type="text"
+                    value={input} 
+                    onChange={e=>setInput(e.target.value)} 
+                    placeholder={`Ask ${appConfig.aiName}...`} 
+                    className="w-full pl-5 pr-12 py-3 text-[15px] text-espresso-950 focus:outline-none placeholder:text-espresso-400"
+                    style={{ 
+                      background: 'var(--s-input)', 
+                      border: '1px solid rgba(28, 18, 8, 0.08)', 
+                      borderRadius: '24px'
+                    }}
+                    onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();handleSend(input);}}}
+                  />
+                  <button 
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-espresso-400 hover:text-[#D9AE63] transition-colors haptic-light"
+                    onClick={startListening}
+                    aria-label="Use voice input"
+                  >
+                    <Icons.Mic className="w-5 h-5" />
+                  </button>
+                </div>
+                <button 
+                  className={`w-[48px] h-[48px] rounded-full flex items-center justify-center shrink-0 transition-all haptic-medium ${input.trim() ? '' : 'opacity-40'}`}
+                  style={input.trim() ? {
+                    background: 'linear-gradient(135deg, #D9AE63 0%, #B58A44 100%)',
+                    boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.35), 0 4px 16px rgba(140, 101, 45, 0.35)'
+                  } : {
+                    background: 'rgba(160, 120, 90, 0.1)'
+                  }}
+                  onClick={()=>handleSend(input)}
+                  disabled={!input.trim()}
+                >
+                  <Icons.Send className={`w-5 h-5 ${input.trim() ? 'text-espresso-950' : 'text-espresso-400'}`} strokeWidth="2.5" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       );
@@ -3741,7 +3940,7 @@ const haptic = (type) => {
         </div>
       );
     };
-// ─── Admin Screen & CRUD ───
+// â”€â”€â”€ Admin Screen & CRUD â”€â”€â”€
     // Compress images client-side: max 800px wide, quality 0.85, returns blob for proper Storage upload
     const compressImage = (file, targetWidth = 800, quality = 0.85) => {
       return new Promise((resolve, reject) => {
@@ -3794,7 +3993,7 @@ const haptic = (type) => {
       });
     };
 
-    // SafeImage: Wraps <img> — shows a neutral placeholder on broken src
+    // SafeImage: Wraps <img> â€” shows a neutral placeholder on broken src
     const SafeImage = ({ src, alt, className, style, ...rest }) => {
       const [broken, setBroken] = useState(false);
       const [loaded, setLoaded] = useState(false);
@@ -4189,17 +4388,17 @@ const haptic = (type) => {
       const graphRef = useRef(null);
       
       if (!data || data.length === 0) return (
-        <div className="bg-white/80 md:backdrop-blur-xl border border-espresso-100/50 p-8 rounded-3xl shadow-sm text-center text-espresso-400 text-xs">
+        <div className="bg-[#18181A] p-10 rounded-[2rem] text-center text-white/30 text-xs">
           Gathering insights...
         </div>
       );
 
       const values = data.map(d => d[metric]);
-      const maxVal = Math.max(...values, 1) * 1.1; 
-      const minVal = 0; 
+      const maxVal = Math.max(...values, 1) * 1.2; 
+      const minVal = Math.min(...values) * 0.8; 
       
-      const width = 400;
-      const height = 140;
+      const width = 600;
+      const height = 240;
       const paddingX = 0;
       const paddingY = 20;
       
@@ -4240,9 +4439,8 @@ const haptic = (type) => {
       const fillPathData = `${pathData} L ${lastX},${baseY} L ${firstX},${baseY} Z`;
 
       const isPositive = values[values.length - 1] >= values[0];
-      const strokeColor = isPositive ? '#10B981' : '#F43F5E'; 
-      const glowColor = isPositive ? 'rgba(16, 185, 129, 0.4)' : 'rgba(244, 63, 94, 0.4)';
-
+      const strokeColor = isPositive ? '#A3E6B4' : '#FFB3B3'; 
+      
       const total = values.reduce((sum, val) => sum + val, 0);
 
       const handleMouseMove = (e) => {
@@ -4257,53 +4455,48 @@ const haptic = (type) => {
 
       return (
         <div 
-          className="relative bg-white/90 md:backdrop-blur-2xl border border-white/40 p-6 rounded-[2rem] space-y-6 overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-black/5"
-          style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.5)' }}
+          className="relative overflow-hidden rounded-[2rem]"
+          style={{ background: '#18181A' }}
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-transparent to-current opacity-[0.03] rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none transition-colors duration-1000" style={{ color: strokeColor }} />
-
-          <div className="relative flex justify-between items-start z-10">
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.2em] font-extrabold text-espresso-400/80 mb-2 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: strokeColor }} />
-                30-Day {metric}
-              </div>
-              <div className="text-4xl font-display text-espresso-950 tracking-tight flex items-baseline gap-1 transition-all duration-500">
-                <span className="text-lg text-espresso-400 font-sans tracking-normal">{metric === 'revenue' ? 'Rs.' : ''}</span>
-                {total.toLocaleString()}
-              </div>
-              
-              <div className="h-4 mt-1">
-                <div className={`text-xs font-medium transition-all duration-300 ${hoverIdx !== null ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`} style={{ color: strokeColor }}>
-                  {hoverIdx !== null && (
-                    <>
-                      {new Date(plotData[hoverIdx].date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}: 
-                      <span className="font-bold ml-1">
-                        {metric === 'revenue' ? 'Rs. ' : ''}{plotData[hoverIdx][metric].toLocaleString()}
-                      </span>
-                    </>
+          {/* Header */}
+          <div className="relative z-10 p-8 pb-0">
+            <div className="flex justify-between items-start">
+              <div className="flex flex-col">
+                <div className="text-[4rem] font-sans font-bold tracking-tighter leading-none animate-fade-in-up" style={{ color: strokeColor }}>
+                  {metric === 'revenue' ? '' : '+'}{total.toLocaleString()}{metric === 'revenue' ? '' : ''}
+                </div>
+                <div className="h-6 mt-2 text-white/50 text-sm font-medium">
+                  {hoverIdx !== null ? (
+                    <span className="animate-fade-in">
+                      {new Date(plotData[hoverIdx].date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}: 
+                      <span className="text-white ml-2">{metric === 'revenue' ? 'Rs. ' : ''}{plotData[hoverIdx][metric].toLocaleString()}</span>
+                    </span>
+                  ) : (
+                    <span className="opacity-0">Hover for details</span>
                   )}
                 </div>
               </div>
-            </div>
 
-            <div className="flex bg-espresso-50/50 md:backdrop-blur-md p-1.5 rounded-xl border border-espresso-100/50 shadow-inner">
-              {['revenue', 'orders'].map(m => (
-                <button 
-                  key={m}
-                  onClick={() => { setMetric(m); setHoverIdx(null); }}
-                  className={`px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all duration-300 ${metric === m ? 'bg-white shadow-sm text-espresso-950 scale-105' : 'text-espresso-400 hover:text-espresso-600'}`}
-                >
-                  {m === 'revenue' ? 'Rev' : 'Ord'}
-                </button>
-              ))}
+              {/* Metric toggle */}
+              <div className="flex p-1 rounded-xl bg-black/20 border border-white/5">
+                {['revenue', 'orders'].map(m => (
+                  <button 
+                    key={m}
+                    onClick={() => { setMetric(m); setHoverIdx(null); }}
+                    className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-300 ${metric === m ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/60'}`}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
           
+          {/* Graph area */}
           <div 
             ref={graphRef}
-            className="relative w-full overflow-hidden mt-4 cursor-crosshair group" 
-            style={{ height: '140px' }}
+            className="relative w-full overflow-hidden mt-6 cursor-crosshair group" 
+            style={{ height: '220px' }}
             onMouseMove={handleMouseMove}
             onMouseLeave={() => setHoverIdx(null)}
             onTouchMove={(e) => {
@@ -4320,76 +4513,50 @@ const haptic = (type) => {
           >
             <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible" preserveAspectRatio="none">
               <defs>
-                <linearGradient id="gradGreen" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#10B981" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#10B981" stopOpacity="0.0" />
+                <pattern id="verticalLines" patternUnits="userSpaceOnUse" width="8" height="100%">
+                  <line x1="0" y1="0" x2="0" y2="100%" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" />
+                </pattern>
+                <linearGradient id="fadeBottom" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="white" stopOpacity="1" />
+                  <stop offset="100%" stopColor="white" stopOpacity="0" />
                 </linearGradient>
-                <linearGradient id="gradRed" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#F43F5E" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#F43F5E" stopOpacity="0.0" />
-                </linearGradient>
+                <mask id="barMask">
+                  <path d={fillPathData} fill="url(#fadeBottom)" />
+                </mask>
                 
-                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
+                {/* Animation clip path to reveal graph from left to right */}
+                <clipPath id="wipeClip">
+                  <rect x="0" y="0" width={width} height={height}>
+                    <animate attributeName="width" from="0" to={width} dur="1.5s" calcMode="spline" keySplines="0.16 1 0.3 1" keyTimes="0;1" fill="freeze" />
+                  </rect>
+                </clipPath>
               </defs>
               
-              <path 
-                d={fillPathData}
-                fill={isPositive ? 'url(#gradGreen)' : 'url(#gradRed)'}
-                className="animate-fade-in-up origin-bottom opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ animationDuration: '1.2s', animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-              />
+              <g clipPath="url(#wipeClip)">
+                {/* Vertical bars masked to the curve area */}
+                <rect x="0" y="0" width={width} height={height} fill="url(#verticalLines)" mask="url(#barMask)" />
 
-              <path 
-                d={pathData}
-                fill="none"
-                stroke={strokeColor}
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                filter="url(#glow)"
-                className="animate-draw-line"
-                style={{
-                  strokeDasharray: '2000',
-                  strokeDashoffset: '2000',
-                }}
-              />
-
-              <path 
-                d={pathData}
-                fill="none"
-                stroke={isPositive ? '#34D399' : '#FB7185'} 
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-draw-line"
-                style={{
-                  strokeDasharray: '2000',
-                  strokeDashoffset: '2000',
-                }}
-              />
+                {/* Main line */}
+                <path 
+                  d={pathData}
+                  fill="none"
+                  stroke={strokeColor}
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
               
+              {/* Hover dot */}
               {hoverIdx !== null && (
                 <g className="animate-fade-in transition-all duration-200">
-                  <line 
-                    x1={coords[hoverIdx][0]} y1={0} 
-                    x2={coords[hoverIdx][0]} y2={height} 
-                    stroke="currentColor" 
-                    strokeWidth="1"
-                    strokeDasharray="4 4"
-                    className="text-espresso-200/50"
-                  />
                   <circle 
                     cx={coords[hoverIdx][0]} 
                     cy={coords[hoverIdx][1]} 
-                    r="5" 
-                    fill="#fff" 
+                    r="6" 
+                    fill="#18181A" 
                     stroke={strokeColor} 
-                    strokeWidth="3"
-                    className="shadow-sm"
-                    filter="url(#glow)"
+                    strokeWidth="3.5"
                   />
                 </g>
               )}
@@ -4467,17 +4634,39 @@ const haptic = (type) => {
 
       return (
         <div className="animate-fade-in space-y-6 pb-20">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-espresso-950 p-5 rounded-2xl text-sand-50 shadow-md">
-              <div className="text-espresso-400 text-[10px] uppercase tracking-widest font-bold mb-1">Today's Revenue</div>
-              <div className="text-3xl font-display text-brown-400">
-                {loading ? '...' : `Rs. ${stats.revenue}`}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="relative overflow-hidden p-5 rounded-[1.25rem]" style={{ 
+              background: 'linear-gradient(165deg, #1a1614 0%, #0f0d0c 100%)',
+              boxShadow: '0 12px 24px -6px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)'
+            }}>
+              <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full blur-[40px] pointer-events-none" style={{ background: 'rgba(52, 211, 153, 0.1)' }} />
+              <div className="relative z-10">
+                <div className="text-white/25 text-[9px] uppercase tracking-[0.25em] font-bold mb-3 flex items-center gap-1.5">
+                  <div className="w-1 h-1 rounded-full bg-[#34D399] animate-pulse" />
+                  Revenue
+                </div>
+                <div className="text-[1.75rem] font-display text-white tracking-tight leading-none" style={{ fontVariationSettings: "'wght' 500" }}>
+                  {loading ? <span className="text-white/20">...</span> : (
+                    <><span className="text-white/40 text-base font-sans mr-0.5">Rs.</span>{stats.revenue.toLocaleString()}</>
+                  )}
+                </div>
+                <div className="text-[9px] text-white/20 mt-2 font-medium">Today</div>
               </div>
             </div>
-            <div className="bg-white border border-espresso-100 p-5 rounded-2xl shadow-sm">
-              <div className="text-espresso-400 text-[10px] uppercase tracking-widest font-bold mb-1">Orders Today</div>
-              <div className="text-3xl font-display text-espresso-950">
-                {loading ? '...' : stats.orders}
+            <div className="relative overflow-hidden p-5 rounded-[1.25rem]" style={{ 
+              background: 'linear-gradient(165deg, #1a1614 0%, #0f0d0c 100%)',
+              boxShadow: '0 12px 24px -6px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)'
+            }}>
+              <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full blur-[40px] pointer-events-none" style={{ background: 'rgba(212, 175, 55, 0.1)' }} />
+              <div className="relative z-10">
+                <div className="text-white/25 text-[9px] uppercase tracking-[0.25em] font-bold mb-3 flex items-center gap-1.5">
+                  <div className="w-1 h-1 rounded-full bg-[#D4AF37] animate-pulse" />
+                  Orders
+                </div>
+                <div className="text-[1.75rem] font-display text-white tracking-tight leading-none" style={{ fontVariationSettings: "'wght' 500" }}>
+                  {loading ? <span className="text-white/20">...</span> : stats.orders}
+                </div>
+                <div className="text-[9px] text-white/20 mt-2 font-medium">Today</div>
               </div>
             </div>
           </div>
@@ -4950,7 +5139,7 @@ const haptic = (type) => {
       );
     });
 
-    // ─── App Root ───
+    // â”€â”€â”€ App Root â”€â”€â”€
     const App = () => {
       const [loading, setLoading] = useState(true);
       const [showLoadingOverlay, setShowLoadingOverlay] = useState(true);
@@ -5143,50 +5332,70 @@ const context = useSmartContext();
         <>
           {showLoadingOverlay && <LoadingScreen isDataReady={!loading} onComplete={() => setShowLoadingOverlay(false)} />}
           <div className={`w-full max-w-lg mx-auto min-h-screen border-x border-sand-100 shadow-2xl relative overflow-x-hidden textured-ground ambient-bg theme-${context.timeOfDay}`} style={{ background: 'var(--bg-ambient)' }}>
-          {view === 'landing' && (
-            <LandingScreen categories={appCategories} 
-              context={context} 
-              setView={setView} 
-              setActiveCategory={setActiveCategory}
-              loyalty={loyalty}
-              recent={recentlyViewed.recent}
-              setDetailItem={handleSetDetailItem}
-              menuData={menuData}
-              appConfig={appConfig}
-              cartCount={cart.count}
-            />
-          )}
+          <AnimatePresence mode="wait">
+            {view === 'landing' && (
+              <motion.div 
+                key="landing"
+                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full"
+              >
+                <LandingScreen categories={appCategories} 
+                  context={context} 
+                  setView={setView} 
+                  setActiveCategory={setActiveCategory}
+                  loyalty={loyalty}
+                  recent={recentlyViewed.recent}
+                  setDetailItem={handleSetDetailItem}
+                  menuData={menuData}
+                  appConfig={appConfig}
+                  cartCount={cart.count}
+                />
+              </motion.div>
+            )}
 
-          {view === 'menu' && (
-            <MenuGalleryScreen categories={appCategories} 
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-              setDetailItem={handleSetDetailItem}
-              addToCart={(item, qty) => cart.addToCart(item, qty)}
-              back={() => setView('landing')}
-              menuData={menuData}
-            />
-          )}
+            {view === 'menu' && (
+              <motion.div 
+                key="menu"
+                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full"
+              >
+                <MenuGalleryScreen categories={appCategories} 
+                  activeCategory={activeCategory}
+                  setActiveCategory={setActiveCategory}
+                  setDetailItem={handleSetDetailItem}
+                  addToCart={(item, qty) => cart.addToCart(item, qty)}
+                  back={() => setView('landing')}
+                  menuData={menuData}
+                />
+              </motion.div>
+            )}
 
-          {view === 'assistant' && (
-            <AssistantScreen 
-              context={context}
-              back={() => setView('landing')}
-              setDetailItem={handleSetDetailItem}
-              menuData={menuData}
-              appConfig={appConfig}
-            />
-          )}
-
-          {view === 'assistant' && (
-            <AssistantScreen 
-              context={context}
-              back={() => setView('landing')}
-              setDetailItem={handleSetDetailItem}
-              menuData={menuData}
-              appConfig={appConfig}
-            />
-          )}
+            {view === 'assistant' && (
+              <motion.div 
+                key="assistant"
+                initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full"
+              >
+                <AssistantScreen 
+                  context={context}
+                  back={() => setView('landing')}
+                  setDetailItem={handleSetDetailItem}
+                  menuData={menuData}
+                  appConfig={appConfig}
+                  cart={cart}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {detailItem && (
             <ItemDetailSheet 
@@ -5339,7 +5548,7 @@ const context = useSmartContext();
                   <span className="h-px w-20" style={{ background: 'linear-gradient(270deg, transparent 0%, rgba(160,120,90,0.35) 100%)' }} />
                 </div>
 
-                {/* Info Rows — refined editorial style */}
+                {/* Info Rows â€” refined editorial style */}
                 <div className="space-y-0">
                   {/* Hours */}
                   <div className="group flex items-start justify-between gap-4 py-4 border-b border-espresso-950/8 transition-colors">
