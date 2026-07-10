@@ -118,7 +118,9 @@ export const RAW_MENU = {
   }
 };
 
-export function getExactImage(name, category) {
+const LOCAL_PHOTOS = ["affogato","americanodoubleshot","americanosingleshot","applecider","bananamilkshake","blackforestcake","blacktea","bluediamond180ml","bluediamond30ml","bluediamond60ml","bluediamondbottle","blueiceland","brownie","butterscotchcake","cappuccino","cheesepizza","chickenburger","chickenchillymomo","chickencmomo","chickenfriedmomo","chickenfriedricefull","chickenfriedricehalf","chickenhot&soursoup","chickenjholmomo","chickenkotheymomo","chickenpizza","chickensadeko","chickensadekomomo","chickensandwich","chickensausage","chickenschezwanfriedricefull","chickenschezwanfriedricehalf","chickensoup","chickensteammomo","chickenthupka","chickenwings","chocolatecake","chocolatedonut","chocolatemilkshake","chocolavacake","cocacola","cornsalt&pepper","creamdonut","doppio","drumstick","eggburger","eggfriedricefull","eggfriedricehalf","espresso","fanta","flatwhite","frappe","frenchfries","goldenoak","goldenoak180ml","goldenoak30ml","goldenoak60ml","greentea","guavajuice","hotchocolate","icedamericano","icedcappuccino","icedlatte","icedmocha","kibu","lemonade","lemontea","mangojuice","masalatea","milktea","mixfruitjuice","mocha","mushroomchilly","mushroompizza","mushroomsoup","nonvegmixpizza","oreomilkshake","paneerchilly","paneerpizza","peachicetea","pineapplecake","plaindonut","pomegranatejuice","redbull","spicychickenwings","sprite","strawberrycake","strawberrymilkshake","vanillacreamcake","vanillamilkshake","vegburger","vegchillymomo","vegcmomo","vegfriedmomo","vegfriedricefull","vegfriedricehalf","veghot&soursoup","vegjholmomo","vegkotheymomo","vegmixpizza","vegpakoda","vegpizza","vegsadekomomo","vegsandwich","vegschezwanfriedricefull","vegschezwanfriedricehalf","vegsoup","vegsteammomo","vegthupka","virginmojito","waiwaisadeko","watermelonjiuce","whiteforestcake"];
+
+const getFallbackImage = (name, category) => {
   const url = (id) => `https://images.unsplash.com/${id}?w=300&q=70&fm=webp&auto=format&fit=crop`;
   const n = name.toLowerCase();
   if (n.includes('espresso') || n.includes('americano') || n.includes('doppio') || n.includes('black')) return url('photo-1510591509098-f4fdc6d0ff04');
@@ -163,6 +165,23 @@ export function getExactImage(name, category) {
   if (n.includes('tequila') || n.includes('jacker') || n.includes('shot')) return url('photo-1560512823-829485b8823c');
   if (category === 'Bar & Hookah') return url('photo-1514362545857-3bc16c4c7d1b');
   return url('photo-1546069901-ba9599a7e63c');
+};
+
+export function getExactImage(name, category) {
+  const formattedName = name.toLowerCase().replace(/[^a-z0-9&]/g, '');
+  
+  let fn = formattedName;
+  if (fn === 'watermelonjuice') fn = 'watermelonjiuce';
+  if (fn === 'chickenthukpa') fn = 'chickenthupka';
+  if (fn === 'vegthukpa') fn = 'vegthupka';
+  if (fn === 'chickensadheko') fn = 'chickensadeko';
+  if (fn === 'waiwaisadheko') fn = 'waiwaisadeko';
+
+  if (LOCAL_PHOTOS.includes(fn)) {
+    return `/menu_item_photos/${fn}.jpg`;
+  }
+  
+  return getFallbackImage(name, category);
 }
 
 export const isSignature = n => INCLUDED_SIGNATURE_NAMES.includes(n);

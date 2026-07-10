@@ -3993,14 +3993,28 @@ const haptic = (type) => {
       });
     };
 
-    // SafeImage: Wraps <img> â€” shows a neutral placeholder on broken src
-    const SafeImage = ({ src, alt, className, style, ...rest }) => {
+    // SafeImage: Wraps <img> — shows a neutral placeholder on broken src, tries fallbackSrc first
+    const SafeImage = ({ src, fallbackSrc, alt, className, style, ...rest }) => {
       const [broken, setBroken] = useState(false);
+      const [triedFallback, setTriedFallback] = useState(false);
       const [loaded, setLoaded] = useState(false);
       
-      useEffect(() => { setBroken(false); setLoaded(false); }, [src]);
+      useEffect(() => { setBroken(false); setLoaded(false); setTriedFallback(false); }, [src]);
       
       if (broken || !src) {
+        if (fallbackSrc && !triedFallback && src !== fallbackSrc) {
+          return (
+            <img 
+              src={fallbackSrc} 
+              alt={alt || ''} 
+              className={className} 
+              style={style}
+              onError={() => { setBroken(true); setTriedFallback(true); }}
+              onLoad={() => setLoaded(true)}
+              {...rest}
+            />
+          );
+        }
         return (
           <div 
             className={className} 
@@ -4023,7 +4037,10 @@ const haptic = (type) => {
           alt={alt || ''} 
           className={className} 
           style={style}
-          onError={() => setBroken(true)}
+          onError={() => {
+            if (fallbackSrc) setTriedFallback(true);
+            setBroken(true);
+          }}
           onLoad={() => setLoaded(true)}
           {...rest}
         />
@@ -5177,10 +5194,10 @@ const context = useSmartContext();
         }, err => console.error("Category sync error:", err));
 
         // ONE-TIME MIGRATE: Force update the cloud menu with the new transcribed local RAW_MENU
-        if (!localStorage.getItem('menu_migrated_v4')) {
+        if (!localStorage.getItem('menu_migrated_v7')) {
           console.log("Pushing new transcribed menu to Firebase...");
           __db.collection('config').doc('menu').set({ items: INITIAL_STATIC_MENU }).then(() => {
-             localStorage.setItem('menu_migrated_v4', 'true');
+             localStorage.setItem('menu_migrated_v7', 'true');
           }).catch(err => { console.error("Could not init config globals", err); showToast("Failed to initialize config", "error"); });
         }
 
