@@ -5194,10 +5194,10 @@ const context = useSmartContext();
         }, err => console.error("Category sync error:", err));
 
         // ONE-TIME MIGRATE: Force update the cloud menu with the new transcribed local RAW_MENU
-        if (!localStorage.getItem('menu_migrated_v7')) {
+        if (!localStorage.getItem('menu_migrated_v20')) {
           console.log("Pushing new transcribed menu to Firebase...");
           __db.collection('config').doc('menu').set({ items: INITIAL_STATIC_MENU }).then(() => {
-             localStorage.setItem('menu_migrated_v7', 'true');
+             localStorage.setItem('menu_migrated_v20', 'true');
           }).catch(err => { console.error("Could not init config globals", err); showToast("Failed to initialize config", "error"); });
         }
 
