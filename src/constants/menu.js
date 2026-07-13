@@ -118,7 +118,7 @@ export const RAW_MENU = {
   }
 };
 
-const LOCAL_PHOTOS = ["tuborgstrong","jackdaniels","redlabel","blacklabel","signature","olddurbarblack","olddurbargo","khukrirum","nudevodka","ruslanvodka","8848vodka","virgin","affogato","americanodoubleshot","americanosingleshot","applecider","bananamilkshake","blackforestcake","blacktea","bluediamond180ml","bluediamond30ml","bluediamond60ml","bluediamondbottle","blueiceland","brownie","butterscotchcake","cappuccino","cheesepizza","chickenburger","chickenchillymomo","chickencmomo","chickenfriedmomo","chickenfriedricefull","chickenfriedricehalf","chickenhot&soursoup","chickenjholmomo","chickenkotheymomo","chickenpizza","chickensadeko","chickensadekomomo","chickensandwich","chickensausage","chickenschezwanfriedricefull","chickenschezwanfriedricehalf","chickensoup","chickensteammomo","chickenthupka","chickenwings","chocolatecake","chocolatedonut","chocolatemilkshake","chocolavacake","cocacola","cornsalt&pepper","creamdonut","doppio","drumstick","eggburger","eggfriedricefull","eggfriedricehalf","espresso","fanta","flatwhite","frappe","frenchfries","goldenoak","goldenoak180ml","goldenoak30ml","goldenoak60ml","greentea","guavajuice","hotchocolate","icedamericano","icedcappuccino","icedlatte","icedmocha","kibu","lemonade","lemontea","mangojuice","masalatea","milktea","mixfruitjuice","mocha","mushroomchilly","mushroompizza","mushroomsoup","nonvegmixpizza","oreomilkshake","paneerchilly","paneerpizza","peachicetea","pineapplecake","plaindonut","pomegranatejuice","redbull","spicychickenwings","sprite","strawberrycake","strawberrymilkshake","vanillacreamcake","vanillamilkshake","vegburger","vegchillymomo","vegcmomo","vegfriedmomo","vegfriedricefull","vegfriedricehalf","veghot&soursoup","vegjholmomo","vegkotheymomo","vegmixpizza","vegpakoda","vegpizza","vegsadekomomo","vegsandwich","vegschezwanfriedricefull","vegschezwanfriedricehalf","vegsoup","vegsteammomo","vegthupka","virginmojito","waiwaisadeko","watermelonjiuce","whiteforestcake"];
+const LOCAL_PHOTOS = ["robertson","jpchenetwhitered","manang","whiteredkinghill","goldtequila","jackerbomb","silvertequila","carlsberg","gorkhastrong","tuborggold","tuborgstrong","jackdaniels","redlabel","blacklabel","signature","olddurbarblack","olddurbargo","khukrirum","nudevodka","ruslanvodka","8848vodka","virgin","affogato","americanodoubleshot","americanosingleshot","applecider","bananamilkshake","blackforestcake","blacktea","bluediamond180ml","bluediamond30ml","bluediamond60ml","bluediamondbottle","blueiceland","brownie","butterscotchcake","cappuccino","cheesepizza","chickenburger","chickenchillymomo","chickencmomo","chickenfriedmomo","chickenfriedricefull","chickenfriedricehalf","chickenhot&soursoup","chickenjholmomo","chickenkotheymomo","chickenpizza","chickensadeko","chickensadekomomo","chickensandwich","chickensausage","chickenschezwanfriedricefull","chickenschezwanfriedricehalf","chickensoup","chickensteammomo","chickenthupka","chickenwings","chocolatecake","chocolatedonut","chocolatemilkshake","chocolavacake","cocacola","cornsalt&pepper","creamdonut","doppio","drumstick","eggburger","eggfriedricefull","eggfriedricehalf","espresso","fanta","flatwhite","frappe","frenchfries","goldenoak","goldenoak180ml","goldenoak30ml","goldenoak60ml","greentea","guavajuice","hotchocolate","icedamericano","icedcappuccino","icedlatte","icedmocha","kibu","lemonade","lemontea","mangojuice","masalatea","milktea","mixfruitjuice","mocha","mushroomchilly","mushroompizza","mushroomsoup","nonvegmixpizza","oreomilkshake","paneerchilly","paneerpizza","peachicetea","pineapplecake","plaindonut","pomegranatejuice","redbull","spicychickenwings","sprite","strawberrycake","strawberrymilkshake","vanillacreamcake","vanillamilkshake","vegburger","vegchillymomo","vegcmomo","vegfriedmomo","vegfriedricefull","vegfriedricehalf","veghot&soursoup","vegjholmomo","vegkotheymomo","vegmixpizza","vegpakoda","vegpizza","vegsadekomomo","vegsandwich","vegschezwanfriedricefull","vegschezwanfriedricehalf","vegsoup","vegsteammomo","vegthupka","virginmojito","waiwaisadeko","watermelonjiuce","whiteforestcake"];
 
 const getFallbackImage = (name, category) => {
   const url = (id) => `https://images.unsplash.com/${id}?w=300&q=70&fm=webp&auto=format&fit=crop`;
@@ -168,6 +168,20 @@ const getFallbackImage = (name, category) => {
 };
 
 export function getExactImage(name, category) {
+  const lowerName = name.toLowerCase();
+  if (
+    lowerName.includes('noodles') || 
+    lowerName.includes('combo set') ||
+    lowerName.includes('satkar special bread') ||
+    lowerName.includes('white bread') ||
+    lowerName.includes('satkar special cookies') ||
+    lowerName.includes('satkar special muffins') ||
+    (lowerName.includes('drumstick') && (lowerName.includes('oriental') || lowerName.includes('orental'))) ||
+    (category && category.toLowerCase() === 'hookah')
+  ) {
+    return 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+  }
+  
   const formattedName = name.toLowerCase().replace(/[^a-z0-9&]/g, '');
   
   let fn = formattedName;
@@ -177,7 +191,7 @@ export function getExactImage(name, category) {
   if (fn === 'chickensadheko') fn = 'chickensadeko';
   if (fn === 'waiwaisadheko') fn = 'waiwaisadeko';
 
-  // For liquors/beers, there should be one brand photo for all portions (30ml, 60ml, 180ml, bottle, 330ml, 650ml)
+  // For liquors/beers, there should be one brand photo for all portions (30ml, 60ml, 180ml, bottle, 330ml, 650ml, shot)
   let brandFn = fn;
   if (fn.endsWith('330ml')) brandFn = fn.slice(0, -5);
   else if (fn.endsWith('650ml')) brandFn = fn.slice(0, -5);
@@ -185,6 +199,7 @@ export function getExactImage(name, category) {
   else if (fn.endsWith('60ml')) brandFn = fn.slice(0, -4);
   else if (fn.endsWith('180ml')) brandFn = fn.slice(0, -5);
   else if (fn.endsWith('bottle')) brandFn = fn.slice(0, -6);
+  else if (fn.endsWith('shot')) brandFn = fn.slice(0, -4);
 
   if (brandFn !== fn) {
     // Attempt to find the single brand photo
