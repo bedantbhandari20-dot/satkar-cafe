@@ -2078,12 +2078,12 @@ const haptic = (type) => {
                   <div 
                     key={item.id} 
                     role="listitem" 
-                    className={`p-3.5 flex gap-4 cursor-pointer group relative transition-all duration-300 active:scale-[0.98] card-3d-tilt ${!mounted.current ? 'animate-rise-card' : 'opacity-100'}`}
+                    className={`p-3.5 flex gap-4 cursor-pointer group relative transition-all duration-300 active:scale-[0.98] shadow-[0_1px_2px_rgba(28,18,8,0.04),0_10px_26px_-14px_rgba(28,18,8,0.20)] hover:-translate-y-1 hover:shadow-[0_15px_30px_-10px_rgba(70,53,44,0.35)] ${!mounted.current ? 'animate-rise-card' : 'opacity-100'}`}
                     style={{
                       borderRadius: '24px',
                       background: 'linear-gradient(160deg, #FFFFFF 0%, var(--s-card) 100%)',
                       border: '1px solid rgba(160, 120, 90, 0.12)',
-                      boxShadow: '0 1px 2px rgba(28,18,8,0.04), 0 10px 26px -14px rgba(28,18,8,0.20)',
+                      
                       animationDelay: `${Math.min(index * 50, 400)}ms`,
                       animationFillMode: 'forwards'
                     }}
@@ -2115,14 +2115,13 @@ const haptic = (type) => {
                           <div className="absolute top-0 bottom-0 w-[50%] animate-shimmer-sweep" style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)' }} />
                         </div>
                       )}
-                      <img 
+                      <ImageWithSkeleton 
                         src={item.imageUrl} 
                         alt={item.name} 
                         loading="lazy" 
-                        className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 group-hover:saturate-[1.06]"
-                        style={{ 
-                          filter: !item.inStock ? 'grayscale(90%) brightness(0.92)' : 'none'
-                        }}
+                        className="w-full h-full transition-all duration-700 ease-out group-hover:scale-105 group-hover:saturate-[1.06]"
+                        imgClassName=""
+                        style={{ filter: !item.inStock ? 'grayscale(90%) brightness(0.92)' : 'none' }}
                       />
                       
                       {/* Diet badges inside image bottom corner */}
@@ -2149,7 +2148,7 @@ const haptic = (type) => {
                         )}
                       </div>
                       
-                      <div className={`font-sans text-[16px] font-semibold leading-[1.25] mb-2 line-clamp-2 ${!item.inStock ? 'text-espresso-400' : 'text-espresso-900 group-hover:text-[#B58A44] transition-colors'}`}>
+                      <div className={`font-sans text-[16px] font-semibold leading-[1.25] mb-2 line-clamp-2 transition-all duration-300 group-hover:tracking-wide ${!item.inStock ? 'text-espresso-400' : 'text-espresso-900 group-hover:text-[#B58A44]'}`}>
                         {item.name}
                       </div>
                       
@@ -2435,7 +2434,7 @@ const haptic = (type) => {
                               <Icons.Check className="w-3 h-3" strokeWidth="3" />
                             </div>
                           )}
-                          <img src={p.imageUrl} alt="" className="w-12 h-12 object-cover shrink-0" style={{ borderRadius: '12px', aspectRatio: '1/1', boxShadow: '0 3px 10px -3px rgba(28,18,8,0.3)', border: '1px solid rgba(160,120,90,0.15)' }} />
+                          <ImageWithSkeleton src={p.imageUrl} alt="" className="w-12 h-12 object-cover shrink-0" style={{ borderRadius: '12px', aspectRatio: '1/1', boxShadow: '0 3px 10px -3px rgba(28,18,8,0.3)', border: '1px solid rgba(160,120,90,0.15)' }} />
                           <div className="min-w-0">
                             <div className="font-sans text-[12px] font-semibold leading-[1.3] text-espresso-900 line-clamp-2">{p.name}</div>
                             <div className="flex items-baseline gap-0.5 mt-0.5">
@@ -5157,7 +5156,60 @@ const haptic = (type) => {
     });
 
     // â”€â”€â”€ App Root â”€â”€â”€
-    const App = () => {
+    
+const MagneticButton = ({ children, className = '', onClick, ...props }) => {
+  const buttonRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { left, top, width, height } = buttonRef.current.getBoundingClientRect();
+    const x = (clientX - (left + width / 2)) * 0.35;
+    const y = (clientY - (top + height / 2)) * 0.35;
+    setPosition({ x, y });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <button
+      ref={buttonRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      className={`transition-all duration-300 ease-out ${className}`}
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+
+const ImageWithSkeleton = ({ src, alt, className, style, ...props }) => {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className={`relative overflow-hidden ${className}`} style={style}>
+      {!loaded && (
+        <div className="absolute inset-0 bg-[#E5DCD3] animate-pulse">
+          <div className="w-full h-full bg-gradient-to-r from-transparent via-[#F5F2EF] to-transparent opacity-40 animate-[shimmer_1.5s_infinite] -translate-x-full" style={{ backgroundImage: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)' }} />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        className={`w-full h-full object-cover transition-opacity duration-700 ease-out ${loaded ? 'opacity-100' : 'opacity-0'} ${props.imgClassName || ''}`}
+        {...props}
+      />
+    </div>
+  );
+};
+
+const App = () => {
       const [loading, setLoading] = useState(true);
       const [showLoadingOverlay, setShowLoadingOverlay] = useState(true);
       const [view, setView] = useState(() => {
