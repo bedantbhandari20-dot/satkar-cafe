@@ -7,10 +7,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Cyrene', 'serif'],
-        display: ['Cyrene', 'serif'],
-        brand: ['Cyrene', 'serif'],
-        price: ['Cyrene', 'serif'],
+        sans: ['Cardo', 'serif'],
+        serif: ['Cardo', 'serif'],
+        mono: ['Cardo', 'serif'],
+        display: ['Cardo', 'serif'],
+        brand: ['Cardo', 'serif'],
+        price: ['Cardo', 'serif'],
         anton: ['Anton', 'sans-serif'],
       },
       colors: {
